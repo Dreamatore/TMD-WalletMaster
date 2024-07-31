@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TMDWalletMaster.Core.Models;
+using TMD_WalletMaster.Core.Models;
 
 namespace TMDWalletMaster.Core.Data
 {
