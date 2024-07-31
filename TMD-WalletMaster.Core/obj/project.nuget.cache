@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4wBFmDIFGtgQLRyZMOPowjgdkrHSQddw0QUdv+Gy8YIc02WlDzhjaVwN03UyNVYDQCr2nQAeu6XqFn0g0N6QoQ==",
+  "dgSpecHash": "Z9YUetCc/GTxJc5zd31dWJFT1VIuZwg9K9CmiPvTzmKQPQHz0sts6/iKyXa2f31M4MSZKfhEPzrGOIZYFwamnQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
+  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj": {}
+    "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj": {
+    "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
+        "projectUniqueName": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
         "projectName": "TMD-WalletMaster.Core",
-        "projectPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
+        "projectPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\TMD-WalletMaster.Core.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster.Web\\TMD-WalletMaster\\TMD-WalletMaster.Core\\obj\\",
+        "outputPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",

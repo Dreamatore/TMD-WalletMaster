@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TMD_WalletMaster.Core
-build_property.ProjectDir = C:\Users\user\RiderProjects\TMDWalletMaster.Web\TMD-WalletMaster\TMD-WalletMaster.Core\
+build_property.ProjectDir = C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.Core\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
