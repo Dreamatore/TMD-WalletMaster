@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TMD-WalletMaster.WPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7846bbb4e9b4eb4234c262db18e2ea7168b8c80a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ea3185dc4e34021c6ea324498448d0c1bb23069")]
 [assembly: System.Reflection.AssemblyProductAttribute("TMD-WalletMaster.WPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TMD-WalletMaster.WPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
