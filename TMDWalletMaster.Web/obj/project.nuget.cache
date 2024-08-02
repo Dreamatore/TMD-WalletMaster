@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nZvy633Mgu82ftxhWKmPmqB5AvB5pjiz2u9aZrwf8TACkPXjNY8YA8FkYWIfp4J67rTfySiF9NSSM/QiPi6FNA==",
+  "dgSpecHash": "z/WL0tvMVyDiSJJyy03fQPvr4j4/TVpSuOyKoqomzfHtTyyIi9ij71la1emx9STfUmm4lMDEkcvmHvmR4mHrIg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Web\\TMDWalletMaster.Web.csproj",
+  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMDWalletMaster.Web\\TMDWalletMaster.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

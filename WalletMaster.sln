@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMD-WalletMaster.Core", "TMD-WalletMaster.Core\TMD-WalletMaster.Core.csproj", "{B1A7E132-63D7-4949-9E4E-8FFF10DFA508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMD-WalletMaster.WPF", "TMD-WalletMaster.WPF\TMD-WalletMaster.WPF.csproj", "{404083F9-782C-442D-9837-27616851E676}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDWalletMaster.Web", "TMDWalletMaster.Web\TMDWalletMaster.Web.csproj", "{852CF601-BFD3-4D24-9251-3A87E088F904}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1A7E132-63D7-4949-9E4E-8FFF10DFA508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A7E132-63D7-4949-9E4E-8FFF10DFA508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A7E132-63D7-4949-9E4E-8FFF10DFA508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A7E132-63D7-4949-9E4E-8FFF10DFA508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404083F9-782C-442D-9837-27616851E676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404083F9-782C-442D-9837-27616851E676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404083F9-782C-442D-9837-27616851E676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404083F9-782C-442D-9837-27616851E676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{852CF601-BFD3-4D24-9251-3A87E088F904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{852CF601-BFD3-4D24-9251-3A87E088F904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{852CF601-BFD3-4D24-9251-3A87E088F904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{852CF601-BFD3-4D24-9251-3A87E088F904}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

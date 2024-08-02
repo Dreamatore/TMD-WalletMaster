@@ -44,8 +44,6 @@ C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\TMD-WalletMaster.Core.dll
-C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\TMD-WalletMaster.Core.pdb
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.csproj.AssemblyReference.cache
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.AssemblyInfoInputs.cache
@@ -278,3 +276,5 @@ C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.Web\ob
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.pdb
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.genruntimeconfig.cache
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.Web\obj\Debug\net8.0\ref\TMDWalletMaster.Web.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\TMD-WalletMaster.Core.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\TMD-WalletMaster.Core.pdb

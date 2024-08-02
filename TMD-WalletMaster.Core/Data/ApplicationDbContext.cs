@@ -16,8 +16,10 @@ namespace TMDWalletMaster.Core.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("YourConnectionString",
+            optionsBuilder.UseSqlServer("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;",
                 b => b.MigrationsAssembly("TMDWalletMaster.Core"));
+
         }
+        
     }
 }
