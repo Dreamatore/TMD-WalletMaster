@@ -5,7 +5,7 @@
         <RootNamespace>TMD_WalletMaster.Core</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>TMD-WalletMaster.Core</AssemblyName> <!-- Добавьте эту строку -->
+        <AssemblyName>TMD-WalletMaster.Core</AssemblyName> 
     </PropertyGroup>
 
     <ItemGroup>
