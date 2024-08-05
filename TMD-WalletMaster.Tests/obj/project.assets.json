@@ -5513,11 +5513,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
       "projectName": "TMD-WalletMaster.Tests",
-      "projectPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
+      "projectPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\WalletMaster\\TMD-WalletMaster.Tests\\obj\\",
+      "outputPath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",

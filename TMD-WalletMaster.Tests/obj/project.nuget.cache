@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+Wx3t/aOu549mHFQ8XEhWHNhThSwb7irCtIogHrlhO4Hy+htdWGYo2Ntii8cM2z/C8MFjop+BYXExcBTGlvUeA==",
+  "dgSpecHash": "4rTGBn1gTJMFc6uhRECm+sXUkP/tRZw+t0PQ7jKzSCfn6UHvCNd72q7LWTaF1tK//n2jfIohjER0xyqTXMWA5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
+  "projectFilePath": "C:\\Users\\user\\RiderProjects\\TMDWalletMaster\\WalletMaster\\TMD-WalletMaster.Tests\\TMD-WalletMaster.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

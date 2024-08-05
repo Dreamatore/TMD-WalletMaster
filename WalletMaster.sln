@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMD-WalletMaster.WPF", "TMD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDWalletMaster.Web", "TMDWalletMaster.Web\TMDWalletMaster.Web.csproj", "{852CF601-BFD3-4D24-9251-3A87E088F904}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMD-WalletMaster.Tests", "TMD-WalletMaster.Tests\TMD-WalletMaster.Tests.csproj", "{E09B8583-1F57-4303-A849-058264B9255F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{852CF601-BFD3-4D24-9251-3A87E088F904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{852CF601-BFD3-4D24-9251-3A87E088F904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{852CF601-BFD3-4D24-9251-3A87E088F904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09B8583-1F57-4303-A849-058264B9255F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09B8583-1F57-4303-A849-058264B9255F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09B8583-1F57-4303-A849-058264B9255F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09B8583-1F57-4303-A849-058264B9255F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
