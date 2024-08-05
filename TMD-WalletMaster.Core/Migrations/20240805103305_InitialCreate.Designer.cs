@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TMDWalletMaster.Core.Data;
+using TMD_WalletMaster.Core.Data;
 
 #nullable disable
 
 namespace TMD_WalletMaster.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240802140740_InitialCreate")]
+    [Migration("20240805103305_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

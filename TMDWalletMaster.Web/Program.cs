@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using TMDWalletMaster.Core.Data;
+using TMD_WalletMaster.Core.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавьте строку подключения к DI-контейнеру
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("TMDWalletMaster.Core")));
+        b => b.MigrationsAssembly("TMD-WalletMaster.Core")));
 
 builder.Services.AddControllersWithViews();
 
