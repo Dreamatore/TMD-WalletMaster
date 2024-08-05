@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
-
 namespace TMD_WalletMaster.Core.Repositories
 {
     public class TransactionRepository : ITransactionRepository
@@ -18,7 +15,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.Transactions.ToListAsync(); // Асинхронный метод
         }
 
         public async Task<Transaction> GetByIdAsync(int id)

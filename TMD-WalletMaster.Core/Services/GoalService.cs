@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using TMD_WalletMaster.Core.Models;
+﻿using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Services.Interfaces;
 
@@ -17,28 +15,33 @@ namespace TMD_WalletMaster.Core.Services
 
         public async Task<IEnumerable<Goal>> GetAllGoalsAsync()
         {
-            return await _goalRepository.GetAllAsync();
+            // Используем асинхронный метод репозитория для получения всех целей
+            return await _goalRepository.GetAllAsync(); // Предполагается, что этот метод также асинхронный
         }
 
         public async Task<Goal> GetGoalByIdAsync(int id)
         {
+            // Используем асинхронный метод репозитория для получения цели по идентификатору
             return await _goalRepository.GetByIdAsync(id);
         }
 
         public async Task<Goal> CreateGoalAsync(Goal goal)
         {
+            // Используем асинхронный метод репозитория для добавления новой цели
             await _goalRepository.AddAsync(goal);
             return goal;
         }
 
         public async Task<Goal> UpdateGoalAsync(Goal goal)
         {
+            // Используем асинхронный метод репозитория для обновления существующей цели
             await _goalRepository.UpdateAsync(goal);
             return goal;
         }
 
         public async Task DeleteGoalAsync(int id)
         {
+            // Используем асинхронный метод репозитория для удаления цели по идентификатору
             await _goalRepository.DeleteAsync(id);
         }
     }

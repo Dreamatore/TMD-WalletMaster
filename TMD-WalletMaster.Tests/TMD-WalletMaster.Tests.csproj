@@ -22,4 +22,12 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TMD-WalletMaster.Core\TMD-WalletMaster.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TMD-WalletMaster.Core\TMD-WalletMaster.Core.csproj" />
+    </ItemGroup>
+
 </Project>
