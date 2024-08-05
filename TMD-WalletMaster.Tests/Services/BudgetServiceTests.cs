@@ -3,9 +3,8 @@ using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Services;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using Xunit;
 
-namespace TMD_WalletMaster.Tests
+namespace TMD_WalletMaster.Tests.Services
 {
     public class BudgetServiceTests
     {
