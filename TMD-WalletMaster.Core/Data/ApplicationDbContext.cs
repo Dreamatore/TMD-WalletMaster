@@ -19,7 +19,7 @@ namespace TMD_WalletMaster.Core.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
-                    "Server=WIN-O9A7KB9ID4M\\SQLEXPRESS;Database=FinanceDB;Trusted_Connection=True;",
+                    "Server=WIN-O9A7KB9ID4M\\SQLEXPRESS;Database=FinanceDB;Trusted_Connection=True;TrustServerCertificate=True;",
                     b => b.MigrationsAssembly("TMD-WalletMaster.Core"));
             }
         }
