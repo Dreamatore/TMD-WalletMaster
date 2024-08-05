@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("TMD-WalletMaster.Core")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("TMD-WalletMaster.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81d7c3c03d0508eb28bad95481b317848232f86a")]
-[assembly: System.Reflection.AssemblyProductAttribute("TMD-WalletMaster.Core")]
-[assembly: System.Reflection.AssemblyTitleAttribute("TMD-WalletMaster.Core")]
+[assembly: System.Reflection.AssemblyProductAttribute("TMD-WalletMaster.Tests")]
+[assembly: System.Reflection.AssemblyTitleAttribute("TMD-WalletMaster.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Создано классом WriteCodeFragment MSBuild.
