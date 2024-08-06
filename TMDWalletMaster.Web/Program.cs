@@ -7,21 +7,20 @@ using TMD_WalletMaster.Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Добавление служб в контейнер.
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-// Add DbContext
+// Настройка контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register services
+// Регистрация служб
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 
-// Build the application
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Настройка обработки запросов
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -34,15 +33,11 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
-// Configure routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Budgets}/{action=Index}/{id?}");
-
 
 app.Run();
