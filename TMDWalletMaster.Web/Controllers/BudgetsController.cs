@@ -19,8 +19,9 @@ namespace TMDWalletMaster.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var budgets = await _budgetService.GetAllBudgetsAsync();
-            return View(budgets);
+            return View(budgets);  
         }
+
 
         // GET: Budgets/Details/5
         public async Task<IActionResult> Details(int id)
@@ -28,15 +29,15 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound();
+                return NotFound(); // Отправляет пользователя на страницу ошибки 404
             }
-            return View(budget);
+            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Details.cshtml
         }
 
         // GET: Budgets/Create
         public IActionResult Create()
         {
-            return View();
+            return View(); // Убедитесь, что View находится в папке Views/Budgets/Create.cshtml
         }
 
         // POST: Budgets/Create
@@ -49,7 +50,7 @@ namespace TMDWalletMaster.Web.Controllers
                 await _budgetService.CreateBudgetAsync(budget);
                 return RedirectToAction(nameof(Index));
             }
-            return View(budget);
+            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Create.cshtml
         }
 
         // GET: Budgets/Edit/5
@@ -58,9 +59,9 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound();
+                return NotFound(); // Отправляет пользователя на страницу ошибки 404
             }
-            return View(budget);
+            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Edit.cshtml
         }
 
         // POST: Budgets/Edit/5
@@ -70,7 +71,7 @@ namespace TMDWalletMaster.Web.Controllers
         {
             if (id != budget.Id)
             {
-                return NotFound();
+                return NotFound(); // Отправляет пользователя на страницу ошибки 404
             }
 
             if (ModelState.IsValid)
@@ -83,16 +84,16 @@ namespace TMDWalletMaster.Web.Controllers
                 {
                     if (!await BudgetExists(budget.Id))
                     {
-                        return NotFound();
+                        return NotFound(); // Отправляет пользователя на страницу ошибки 404
                     }
                     else
                     {
-                        throw;
+                        throw; // Перебрасывает исключение для отладки
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(budget);
+            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Edit.cshtml
         }
 
         // GET: Budgets/Delete/5
@@ -101,9 +102,9 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound();
+                return NotFound(); // Отправляет пользователя на страницу ошибки 404
             }
-            return View(budget);
+            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Delete.cshtml
         }
 
         // POST: Budgets/Delete/5

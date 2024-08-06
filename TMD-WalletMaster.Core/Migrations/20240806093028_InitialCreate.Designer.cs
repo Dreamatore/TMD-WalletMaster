@@ -12,7 +12,7 @@ using TMD_WalletMaster.Core.Data;
 namespace TMD_WalletMaster.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240805180008_InitialCreate")]
+    [Migration("20240806093028_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

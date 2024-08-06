@@ -1,0 +1,12 @@
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\bin\Debug\net8.0-windows\TMD-WalletMaster.WPF.deps.json
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\bin\Debug\net8.0-windows\TMD-WalletMaster.WPF.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\bin\Debug\net8.0-windows\TMD-WalletMaster.WPF.pdb
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.AssemblyInfoInputs.cache
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.AssemblyInfo.cs
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.csproj.CoreCompileInputs.cache
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.sourcelink.json
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\refint\TMD-WalletMaster.WPF.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\TMD-WalletMaster.WPF.pdb
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMD-WalletMaster.WPF\obj\Debug\net8.0-windows\ref\TMD-WalletMaster.WPF.dll

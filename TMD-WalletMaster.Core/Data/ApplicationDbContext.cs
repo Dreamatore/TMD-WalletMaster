@@ -1,28 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace TMD_WalletMaster.Core.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Goal> Goals { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(
-                    "Server=WIN-O9A7KB9ID4M\\SQLEXPRESS;Database=FinanceDB;Trusted_Connection=True;TrustServerCertificate=True;",
-                    b => b.MigrationsAssembly("TMD-WalletMaster.Core"));
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -7,5 +7,5 @@ public class Budget
     public decimal Amount { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public ICollection<Transaction> Transactions { get; set; } // Navigation property
+    public ICollection<Transaction> Transactions { get; set; } 
 }
