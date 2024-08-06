@@ -16,7 +16,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task<IEnumerable<Budget>> GetAllAsync()
         {
-            return await _context.Budgets.ToListAsync(); // Асинхронный метод
+            return await _context.Budgets.ToListAsync(); 
         }
 
         public async Task<Budget> GetByIdAsync(int id)

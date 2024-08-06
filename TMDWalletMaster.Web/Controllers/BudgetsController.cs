@@ -2,26 +2,28 @@
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace TMDWalletMaster.Web.Controllers
 {
     public class BudgetsController : Controller
     {
         private readonly IBudgetService _budgetService;
+        private readonly ICategoryService _categoryService;
 
-        public BudgetsController(IBudgetService budgetService)
+        public BudgetsController(IBudgetService budgetService, ICategoryService categoryService)
         {
             _budgetService = budgetService;
+            _categoryService = categoryService;
         }
 
         // GET: Budgets
         public async Task<IActionResult> Index()
         {
             var budgets = await _budgetService.GetAllBudgetsAsync();
-            return View(budgets);  
+            return View(budgets);
         }
-
 
         // GET: Budgets/Details/5
         public async Task<IActionResult> Details(int id)
@@ -29,28 +31,30 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound(); // Отправляет пользователя на страницу ошибки 404
+                return NotFound();
             }
-            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Details.cshtml
+            return View(budget);
         }
 
         // GET: Budgets/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View(); // Убедитесь, что View находится в папке Views/Budgets/Create.cshtml
+            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name");
+            return View();
         }
 
         // POST: Budgets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Amount,StartDate,EndDate")] Budget budget)
+        public async Task<IActionResult> Create([Bind("Name,Amount,StartDate,EndDate,CategoryId")] Budget budget)
         {
             if (ModelState.IsValid)
             {
                 await _budgetService.CreateBudgetAsync(budget);
                 return RedirectToAction(nameof(Index));
             }
-            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Create.cshtml
+            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", budget.CategoryId);
+            return View(budget);
         }
 
         // GET: Budgets/Edit/5
@@ -59,41 +63,29 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound(); // Отправляет пользователя на страницу ошибки 404
+                return NotFound();
             }
-            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Edit.cshtml
+            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", budget.CategoryId);
+            return View(budget);
         }
 
         // POST: Budgets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,StartDate,EndDate")] Budget budget)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,StartDate,EndDate,CategoryId")] Budget budget)
         {
             if (id != budget.Id)
             {
-                return NotFound(); // Отправляет пользователя на страницу ошибки 404
+                return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    await _budgetService.UpdateBudgetAsync(budget);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!await BudgetExists(budget.Id))
-                    {
-                        return NotFound(); // Отправляет пользователя на страницу ошибки 404
-                    }
-                    else
-                    {
-                        throw; // Перебрасывает исключение для отладки
-                    }
-                }
+                await _budgetService.UpdateBudgetAsync(budget);
                 return RedirectToAction(nameof(Index));
             }
-            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Edit.cshtml
+            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", budget.CategoryId);
+            return View(budget);
         }
 
         // GET: Budgets/Delete/5
@@ -102,9 +94,9 @@ namespace TMDWalletMaster.Web.Controllers
             var budget = await _budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
-                return NotFound(); // Отправляет пользователя на страницу ошибки 404
+                return NotFound();
             }
-            return View(budget); // Убедитесь, что View находится в папке Views/Budgets/Delete.cshtml
+            return View(budget);
         }
 
         // POST: Budgets/Delete/5
@@ -114,12 +106,6 @@ namespace TMDWalletMaster.Web.Controllers
         {
             await _budgetService.DeleteBudgetAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private async Task<bool> BudgetExists(int id)
-        {
-            var budget = await _budgetService.GetBudgetByIdAsync(id);
-            return budget != null;
         }
     }
 }

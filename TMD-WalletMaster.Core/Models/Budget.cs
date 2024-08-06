@@ -8,4 +8,6 @@ public class Budget
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public ICollection<Transaction> Transactions { get; set; } 
+    public int CategoryId { get; set; }
+    public Category Category { get; set; }
 }
