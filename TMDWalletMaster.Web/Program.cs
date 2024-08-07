@@ -4,6 +4,10 @@ using TMD_WalletMaster.Core.Services.Interfaces;
 using TMD_WalletMaster.Core.Services;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Repositories;
+using FluentEmail.Core;
+using FluentEmail.Smtp;
+using MailKit.Net.Smtp;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,19 @@ builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+// Настройка FluentEmail
+builder.Services.AddFluentEmail(builder.Configuration["EmailSettings:Username"])
+    .AddSmtpSender(new SmtpClient
+    {
+        Server = builder.Configuration["EmailSettings:SmtpServer"],
+        Port = int.Parse(builder.Configuration["EmailSettings:SmtpPort"]),
+        EnableSsl = true,
+        Authenticator = new MailKit.Net.Smtp.SmtpClient(
+            builder.Configuration["EmailSettings:Username"],
+            builder.Configuration["EmailSettings:Password"])
+    });
+
+// Построение приложения
 var app = builder.Build();
 
 // Настройка обработки запросов
@@ -40,6 +57,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Budgets}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

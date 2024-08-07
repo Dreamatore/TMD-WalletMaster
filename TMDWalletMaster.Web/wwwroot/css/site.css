@@ -1,22 +1,35 @@
+/* Общие стили */
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
+  font-size: 14px; /* Шрифт по умолчанию */
   position: relative;
   min-height: 100%;
 }
 
+@media (min-width: 768px) {
+  html {
+    font-size: 16px; /* Увеличение шрифта на больших экранах */
+  }
+}
+
+/* Стили кнопок и элементов формы при фокусе */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Стили фона для всего тела страницы */
 body {
-  margin-bottom: 60px;
+  background-image: url('../images/space.jpg');
+  background-size: cover; /* Изображение покрывает весь экран */
+  background-repeat: no-repeat; /* Изображение не повторяется */
+  background-attachment: fixed; /* Фон фиксирован при прокрутке */
+  margin-bottom: 60px; /* Отступ внизу страницы для подвала */
+}
+
+/* Дополнительные стили для контейнера */
+.container {
+  padding: 20px; /* Отступы внутри контейнера */
 }
