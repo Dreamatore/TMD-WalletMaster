@@ -1,20 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using FluentEmail.Core;
-using FluentEmail.MailKitSmtp;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using MimeKit;
 using Microsoft.Extensions.Configuration;
 
 namespace TMDWalletMaster.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IFluentEmail _emailSender;
         private readonly IConfiguration _configuration;
 
-        public HomeController(IFluentEmail emailSender, IConfiguration configuration)
+        public HomeController(IConfiguration configuration)
         {
-            _emailSender = emailSender;
             _configuration = configuration;
         }
 
@@ -31,24 +28,28 @@ namespace TMDWalletMaster.Web.Controllers
             var code = GenerateVerificationCode();
 
             // Отправка email
-            var response = await _emailSender
-                .To(email)
-                .Subject("Your verification code")
-                .Body($"Your verification code is {code}")
-                .SendAsync();
-
-            if (response.Successful)
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("TMDWalletMaster", _configuration["EmailSettings:Username"]));
+            message.To.Add(new MailboxAddress(email, email));
+            message.Subject = "Your verification code";
+            message.Body = new TextPart("plain")
             {
-                // Сохраните код в базе данных или кэше, чтобы проверить его позже
-                // TODO: Реализуйте сохранение кода и данных пользователя
+                Text = $"Your verification code is {code}"
+            };
 
-                // Перенаправляем на страницу подтверждения email
-                return RedirectToAction("ConfirmEmail");
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync(_configuration["EmailSettings:SmtpServer"], int.Parse(_configuration["EmailSettings:SmtpPort"]), MailKit.Security.SecureSocketOptions.SslOnConnect);
+                await client.AuthenticateAsync(_configuration["EmailSettings:Username"], _configuration["EmailSettings:Password"]);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
             }
 
-            // Обработка ошибок
-            ModelState.AddModelError("", "Failed to send verification email.");
-            return View();
+            // TODO: Сохраните код в базе данных или кэше, чтобы проверить его позже
+            // Сохранение кода и данных пользователя
+
+            // Перенаправляем на страницу подтверждения email
+            return RedirectToAction("ConfirmEmail");
         }
 
         [HttpPost]
@@ -59,6 +60,12 @@ namespace TMDWalletMaster.Web.Controllers
 
             // После входа перенаправляем на страницу профиля
             return RedirectToAction("Profile");
+        }
+
+        public IActionResult ConfirmEmail()
+        {
+            // Страница для подтверждения email или ввода кода подтверждения
+            return View();
         }
 
         [HttpPost]

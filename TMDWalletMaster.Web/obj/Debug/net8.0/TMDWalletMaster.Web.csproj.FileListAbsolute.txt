@@ -328,7 +328,6 @@ C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Drawing.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Drawing.Primitives.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Dynamic.Runtime.dll
-C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Formats.Asn1.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Formats.Tar.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Globalization.Calendars.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\refs\System.Globalization.dll
@@ -573,3 +572,10 @@ C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.pdb
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\TMDWalletMaster.Web.genruntimeconfig.cache
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\obj\Debug\net8.0\ref\TMDWalletMaster.Web.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\FluentEmail.Core.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\FluentEmail.MailKit.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\FluentEmail.Smtp.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\MailKit.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\MimeKit.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\System.Formats.Asn1.dll
