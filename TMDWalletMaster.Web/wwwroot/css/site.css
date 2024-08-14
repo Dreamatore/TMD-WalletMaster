@@ -22,7 +22,7 @@ html {
 
 /* Стили фона для всего тела страницы */
 body {
-  background-image: url('../images/space.jpg');
+  background-image: url('../images/pex.jpg');
   background-size: cover; /* Изображение покрывает весь экран */
   background-repeat: no-repeat; /* Изображение не повторяется */
   background-attachment: fixed; /* Фон фиксирован при прокрутке */
@@ -84,4 +84,113 @@ h1 {
 .card-container {
   width: 100%; /* Ширина контейнера */
   max-width: 600px; /* Максимальная ширина */
+}
+/* Стили для контейнера навигации */
+.navigation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* Стили для панели управления */
+.manage-panel {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Расстояние между кнопками */
+}
+
+/* Стили для кнопок управления */
+.manage-panel .btn {
+  padding: 10px 20px; /* Увеличение внутреннего отступа кнопок */
+  font-size: 1rem; /* Размер шрифта кнопок */
+  border-radius: 5px; /* Скругление углов кнопок */
+  text-align: center; /* Выравнивание текста по центру */
+}
+
+/* Стили для отступов внизу страницы */
+.footer {
+  margin-top: 50px; /* Увеличение отступа сверху */
+}
+/* Стиль для заголовка страницы Budgets */
+.page-title {
+  font-size: 2.5rem; /* Размер шрифта */
+  color: #ffc107; /* Жёлтый цвет (такой же, как и для навигации) */
+  margin-bottom: 20px; /* Отступ снизу */
+  text-align: center; /* Выравнивание по центру */
+}
+/* Стиль для кнопки Create New */
+.btn-lg {
+  font-size: 1.25rem; /* Увеличенный размер шрифта */
+  color: #ffffff; /* Белый цвет текста */
+  background-color: #00bfff; /* Ярко голубой цвет фона */
+  border-color: #00bfff; /* Ярко голубой цвет границы */
+}
+
+/* Стиль для текстовых полей Name и Amount */
+.highlight-text {
+  color: #32cd32; /* Ярко зеленый цвет */
+}
+
+/* Пример стилизации таблицы (если необходимо) */
+.table th, .table td {
+  color: #32cd32; /* Ярко зеленый цвет */
+}
+/* Стиль для заголовка Budget */
+.budget-title {
+  font-size: 3rem; /* Крупный размер шрифта */
+  color: #00bfff; /* Ярко голубой цвет */
+  text-align: center; /* Выравнивание по центру */
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Стили для надписей полей формы */
+.form-label {
+  color: #32cd32; /* Ярко зеленый цвет */
+  font-size: 1.125rem; /* Размер шрифта */
+}
+
+/* Стили для полей ввода */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #ffffff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+/* Стили для контейнера кнопки */
+.button-container {
+  display: flex;
+  justify-content: center; /* Центрирует кнопку по горизонтали */
+  margin-top: 40px; /* Увеличиваем отступ сверху для дополнительного пространства */
+}
+
+
+/* Вы можете также использовать эти стили для дополнительной настройки */
+.form-group {
+  margin-bottom: 20px; /* Увеличенный отступ снизу для разделения полей */
+}
+
+/* Для кнопки */
+.btn-primary.btn-lg {
+  font-size: 1.5rem; /* Увеличенный размер шрифта */
+  padding: 15px 30px; /* Увеличенные внутренние отступы для увеличения размера кнопки */
+  color: #ffffff; /* Белый цвет текста */
+  background-color: #00bfff; /* Ярко голубой цвет фона */
+  border-color: #00bfff; /* Ярко голубой цвет границы */
+  border-radius: 5px; /* Скругление углов кнопки */
 }

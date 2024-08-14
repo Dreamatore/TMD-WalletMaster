@@ -579,3 +579,5 @@ C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\MailKit.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\MimeKit.dll
 C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\System.Formats.Asn1.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\Npgsql.dll
+C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

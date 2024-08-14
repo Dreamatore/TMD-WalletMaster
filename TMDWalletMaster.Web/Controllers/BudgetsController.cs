@@ -4,6 +4,7 @@ using TMD_WalletMaster.Core.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Security.Claims;
 
 namespace TMDWalletMaster.Web.Controllers
 {
@@ -35,15 +36,15 @@ namespace TMDWalletMaster.Web.Controllers
             }
             return View(budget);
         }
-
-        // GET: Budgets/Create
+// GET: Budgets/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name");
+            var categories = await _categoryService.GetAllCategoriesAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View();
         }
 
-        // POST: Budgets/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Amount,StartDate,EndDate,CategoryId")] Budget budget)
@@ -51,11 +52,14 @@ namespace TMDWalletMaster.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _budgetService.CreateBudgetAsync(budget);
-                return RedirectToAction(nameof(Index));
+                // Получение текущего пользователя
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                return RedirectToAction("Profile", "User", new { id = userId });
             }
             ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", budget.CategoryId);
             return View(budget);
         }
+
 
         // GET: Budgets/Edit/5
         public async Task<IActionResult> Edit(int id)

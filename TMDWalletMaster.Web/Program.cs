@@ -4,7 +4,6 @@ using TMD_WalletMaster.Core.Services.Interfaces;
 using TMD_WalletMaster.Core.Services;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +12,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Настройка контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Регистрация служб
 builder.Services.AddScoped<IBudgetService, BudgetService>();

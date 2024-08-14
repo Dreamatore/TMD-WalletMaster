@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace TMD_WalletMaster.Core.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+        // Конструктор по умолчанию для использования в миграциях
+        public ApplicationDbContext() : base()
+        {
+        }
 
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }

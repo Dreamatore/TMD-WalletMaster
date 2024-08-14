@@ -1,43 +1,41 @@
 ﻿@model TMD_WalletMaster.Core.Models.Budget
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Budget";
 }
 
-<h1>Create</h1>
+<!-- Заголовок страницы "Create" -->
+<h1 class="page-title text-warning">Create</h1>
 
-<h4>Budget</h4>
-<hr />
+<!-- Подзаголовок "Budget" -->
+<h2 class="budget-title text-primary">Budget</h2>
+
 <form asp-action="Create">
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="Name" class="form-label text-success"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="Amount" class="control-label"></label>
+        <label asp-for="Amount" class="form-label text-success"></label>
         <input asp-for="Amount" class="form-control" />
         <span asp-validation-for="Amount" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="StartDate" class="control-label"></label>
+        <label asp-for="StartDate" class="form-label text-success"></label>
         <input asp-for="StartDate" class="form-control" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="EndDate" class="control-label"></label>
+        <label asp-for="EndDate" class="form-label text-success"></label>
         <input asp-for="EndDate" class="form-control" />
         <span asp-validation-for="EndDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="CategoryId" class="control-label"></label>
-        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+    <!-- Контейнер для кнопки -->
+    <div class="form-group button-container">
+        <button type="submit" class="btn btn-primary btn-lg">Create</button>
     </div>
 </form>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
