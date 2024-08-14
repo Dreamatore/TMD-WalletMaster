@@ -36,7 +36,8 @@ namespace TMDWalletMaster.Web.Controllers
             }
             return View(budget);
         }
-// GET: Budgets/Create
+
+        // GET: Budgets/Create
         public async Task<IActionResult> Create()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();
@@ -44,22 +45,27 @@ namespace TMDWalletMaster.Web.Controllers
             return View();
         }
 
-
+        // POST: Budgets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Amount,StartDate,EndDate,CategoryId")] Budget budget)
         {
             if (ModelState.IsValid)
             {
-                await _budgetService.CreateBudgetAsync(budget);
-                // Получение текущего пользователя
+                // Установка UserId в создании бюджета
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                budget.UserId = userId;
+
+                await _budgetService.CreateBudgetAsync(budget);
+
+                // Перенаправление на страницу профиля после успешного создания
                 return RedirectToAction("Profile", "User", new { id = userId });
             }
+
+            // В случае ошибки, возврат на страницу создания с заполненными полями
             ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", budget.CategoryId);
             return View(budget);
         }
-
 
         // GET: Budgets/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -76,7 +82,7 @@ namespace TMDWalletMaster.Web.Controllers
         // POST: Budgets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,StartDate,EndDate,CategoryId")] Budget budget)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,StartDate,EndDate,CategoryId,UserId")] Budget budget)
         {
             if (id != budget.Id)
             {
