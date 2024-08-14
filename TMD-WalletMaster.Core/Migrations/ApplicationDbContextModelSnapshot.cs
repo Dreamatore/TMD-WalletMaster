@@ -46,6 +46,10 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -107,7 +111,7 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("BudgetId")
+                    b.Property<int?>("BudgetId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Date")
@@ -120,6 +124,10 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.Property<int?>("GoalId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BudgetId");
@@ -127,6 +135,20 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.HasIndex("GoalId");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("TMD_WalletMaster.Core.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>
@@ -142,17 +164,13 @@ namespace TMD_WalletMaster.Core.Migrations
 
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Transaction", b =>
                 {
-                    b.HasOne("TMD_WalletMaster.Core.Models.Budget", "Budget")
+                    b.HasOne("TMD_WalletMaster.Core.Models.Budget", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("BudgetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BudgetId");
 
                     b.HasOne("TMD_WalletMaster.Core.Models.Goal", null)
                         .WithMany("Transactions")
                         .HasForeignKey("GoalId");
-
-                    b.Navigation("Budget");
                 });
 
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>

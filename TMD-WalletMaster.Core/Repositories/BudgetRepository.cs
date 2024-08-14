@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
@@ -12,6 +15,14 @@ namespace TMD_WalletMaster.Core.Repositories
         public BudgetRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+        {
+            // Убедитесь, что UserId есть в модели Budget
+            return await _context.Budgets
+                .Where(b => b.UserId == userId) 
+                .ToListAsync(); 
         }
 
         public async Task<IEnumerable<Budget>> GetAllAsync()

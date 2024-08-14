@@ -1,29 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TMD_WalletMaster.Web.Models;
-using TMD_WalletMaster.Core.Data; 
+using TMD_WalletMaster.Core.Services.Interfaces;
+using TMDWalletMaster.Web.ViewModels;
+using System.Threading.Tasks;
 
 namespace TMDWalletMaster.Web.Controllers
 {
     public class NavigationController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IBudgetService _budgetService;
 
-        public NavigationController(ApplicationDbContext context)
+        public NavigationController(IBudgetService budgetService)
         {
-            _context = context;
+            _budgetService = budgetService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var viewModel = new NavigationViewModel
+            var userId = "1"; // Замените на реальный идентификатор пользователя
+            var budgets = await _budgetService.GetBudgetsByUserIdAsync(userId);
+
+            var model = new UserProfileViewModel
             {
-                Budgets = _context.Budgets.ToList(),
-                Goals = _context.Goals.ToList(),
-                Transactions = _context.Transactions.ToList(),
-                Categories = _context.Categories.ToList()
+                Budgets = budgets
+                // Другие данные, если нужно
             };
 
-            return View(viewModel);
+            return View(model);
         }
     }
 }

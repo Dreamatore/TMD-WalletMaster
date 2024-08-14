@@ -12,7 +12,10 @@ namespace TMD_WalletMaster.Core.Services
         {
             _budgetRepository = budgetRepository;
         }
-
+        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+        {
+            return await _budgetRepository.GetBudgetsByUserIdAsync(userId);
+        }
         public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
         {
             // Используем асинхронный метод репозитория для получения всех бюджетов

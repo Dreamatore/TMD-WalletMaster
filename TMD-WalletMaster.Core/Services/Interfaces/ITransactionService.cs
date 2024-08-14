@@ -6,6 +6,7 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
 {
     public interface ITransactionService
     {
+        Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(string userId); // Этот метод должен быть объявлен
         Task<IEnumerable<Transaction>> GetAllTransactionsAsync();
         Task<Transaction> GetTransactionByIdAsync(int id);
         Task<Transaction> CreateTransactionAsync(Transaction transaction);

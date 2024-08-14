@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMD_WalletMaster.Core.Models;
 
-namespace TMD_WalletMaster.Core.Models
+namespace TMDWalletMaster.Web.ViewModels
 {
     public class UserProfileViewModel
     {

@@ -1,15 +1,25 @@
-﻿@model TMD_WalletMaster.Web.Models.NavigationViewModel
+﻿@model TMDWalletMaster.Web.ViewModels.UserProfileViewModel
 
-@{
-    ViewData["Title"] = "Navigation";
-}
+<h1>Budgets</h1>
 
-<h1 class="text-warning">Navigation</h1>
-
-<div class="navigation-container">
-    <div class="manage-panel">
-        <a href="@Url.Action("Index", "Budgets")" class="btn btn-success">Manage your Budget</a>
-        <a href="@Url.Action("Index", "Goals")" class="btn btn-success">Manage your Goal</a>
-        <a href="@Url.Action("Index", "Transactions")" class="btn btn-success">Manage your Transaction</a>
-    </div>
-</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var budget in Model.Budgets)
+    {
+        <tr>
+            <td>@budget.Name</td>
+            <td>@budget.Amount</td>
+            <td>@budget.StartDate.ToShortDateString()</td>
+            <td>@budget.EndDate.ToShortDateString()</td>
+        </tr>
+    }
+    </tbody>
+</table>

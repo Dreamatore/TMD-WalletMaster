@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TMD_WalletMaster.Core.Models;
 
 namespace TMD_WalletMaster.Core.Repositories.Interfaces

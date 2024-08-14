@@ -1,11 +1,12 @@
-﻿namespace TMD_WalletMaster.Core.Models;
-
-public class Transaction
+﻿namespace TMD_WalletMaster.Core.Models
 {
-    public int Id { get; set; }
-    public string Description { get; set; }
-    public decimal Amount { get; set; }
-    public DateTime Date { get; set; }
-    public int BudgetId { get; set; } 
-    public Budget Budget { get; set; } 
+    public class Transaction
+    {
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+        
+    }
 }

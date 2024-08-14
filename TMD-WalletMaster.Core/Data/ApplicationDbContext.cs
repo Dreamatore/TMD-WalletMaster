@@ -9,12 +9,11 @@ namespace TMD_WalletMaster.Core.Data
             : base(options)
         {
         }
-
-        // Конструктор по умолчанию для использования в миграциях
+        
         public ApplicationDbContext() : base()
         {
         }
-
+        public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Goal> Goals { get; set; }

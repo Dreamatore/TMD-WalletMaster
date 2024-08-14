@@ -1,5 +1,4 @@
-﻿@model TMD_WalletMaster.Core.Models.UserProfileViewModel
-
+﻿@model TMDWalletMaster.Web.ViewModels.UserProfileViewModel
 <h1>@Model.User.Name's Profile</h1>
 
 <div class="profile-section">
@@ -16,12 +15,12 @@
         <tbody>
         @foreach (var budget in Model.Budgets)
         {
-        <tr>
-            <td>@budget.Name</td>
-            <td>@budget.Amount</td>
-            <td>@budget.StartDate.ToShortDateString()</td>
-            <td>@budget.EndDate.ToShortDateString()</td>
-        </tr>
+            <tr>
+                <td>@budget.Name</td>
+                <td>@budget.Amount</td>
+                <td>@budget.StartDate.ToShortDateString()</td>
+                <td>@budget.EndDate.ToShortDateString()</td>
+            </tr>
         }
         </tbody>
     </table>
@@ -40,11 +39,11 @@
         <tbody>
         @foreach (var transaction in Model.Transactions)
         {
-        <tr>
-            <td>@transaction.Description</td>
-            <td>@transaction.Amount</td>
-            <td>@transaction.Date.ToShortDateString()</td>
-        </tr>
+            <tr>
+                <td>@transaction.Description</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Date.ToShortDateString()</td>
+            </tr>
         }
         </tbody>
     </table>

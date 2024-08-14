@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using System.Threading.Tasks;
-using TMD_WalletMaster.Core.Models;
+using TMDWalletMaster.Web.ViewModels; // Убедитесь, что ViewModel находится здесь
 
 namespace TMDWalletMaster.Web.Controllers
 {
@@ -21,8 +20,8 @@ namespace TMDWalletMaster.Web.Controllers
         public async Task<IActionResult> Profile(string id)
         {
             var user = await _userService.GetUserByIdAsync(id);
-            var budgets = await _budgetService.GetBudgetsByUserIdAsync(id);
-            var transactions = await _transactionService.GetTransactionsByUserIdAsync(id);
+            var budgets = await _budgetService.GetBudgetsByUserIdAsync(id); // Исправлено
+            var transactions = await _transactionService.GetTransactionsByUserIdAsync(id); // Исправлено
 
             var model = new UserProfileViewModel
             {
