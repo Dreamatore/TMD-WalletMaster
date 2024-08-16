@@ -12,8 +12,8 @@ using TMD_WalletMaster.Core.Data;
 namespace TMD_WalletMaster.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240814130636_AddUserIdToBudgets")]
-    partial class AddUserIdToBudgets
+    [Migration("20240816100912_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,10 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.Property<int?>("BudgetId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
@@ -126,6 +130,9 @@ namespace TMD_WalletMaster.Core.Migrations
 
                     b.Property<int?>("GoalId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UserId")
                         .IsRequired()

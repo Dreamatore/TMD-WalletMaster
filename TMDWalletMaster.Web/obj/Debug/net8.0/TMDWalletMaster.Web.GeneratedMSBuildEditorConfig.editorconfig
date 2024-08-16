@@ -58,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Goals/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -84,6 +88,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Transactions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Transactions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/User/Profile.cshtml]

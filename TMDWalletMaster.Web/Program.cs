@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
+using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 using TMD_WalletMaster.Core.Services;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
@@ -19,7 +20,10 @@ builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-
+builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<IGoalRepository,GoalRepository>();
+builder.Services.AddScoped<ITransactionService,TransactionService>();
+builder.Services.AddScoped<ITransactionRepository,TransactionRepository>();
 // Регистрация конфигурации почтового сервиса
 builder.Services.AddSingleton(builder.Configuration);
 
@@ -51,6 +55,11 @@ app.UseEndpoints(endpoints =>
         name: "navigation",
         pattern: "Navigation/{action=Index}/{id?}",
         defaults: new { controller = "Navigation" });
+
+    endpoints.MapControllerRoute(
+        name: "transactions",
+        pattern: "Transactions/{action=Index}/{id?}",
+        defaults: new { controller = "Transactions" });
 });
 
 app.Run();

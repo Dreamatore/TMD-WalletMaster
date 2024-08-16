@@ -19,7 +19,6 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
         {
-            // Убедитесь, что UserId есть в модели Budget
             return await _context.Budgets
                 .Where(b => b.UserId == userId) 
                 .ToListAsync(); 

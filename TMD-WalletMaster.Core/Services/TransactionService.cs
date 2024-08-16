@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Services.Interfaces;
@@ -8,43 +10,56 @@ namespace TMD_WalletMaster.Core.Services
 {
     public class TransactionService : ITransactionService
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly ApplicationDbContext _context;
 
-        public TransactionService(ITransactionRepository transactionRepository)
+        public TransactionService(ApplicationDbContext context)
         {
-            _transactionRepository = transactionRepository;
-        }
-
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
-        {
-            return await _transactionRepository.GetAllAsync();
-        }
-
-        public async Task<Transaction> GetTransactionByIdAsync(int id)
-        {
-            return await _transactionRepository.GetByIdAsync(id);
+            _context = context;
         }
 
         public async Task<Transaction> CreateTransactionAsync(Transaction transaction)
         {
-            await _transactionRepository.AddAsync(transaction);
+            _context.Transactions.Add(transaction);
+            await _context.SaveChangesAsync();
             return transaction;
         }
-
-        public async Task<Transaction> UpdateTransactionAsync(Transaction transaction)
+        public async Task<decimal> GetTotalAmountByUserIdAsync(string userId)
         {
-            await _transactionRepository.UpdateAsync(transaction);
-            return transaction;
+            return await _context.Transactions
+                .Where(t => t.UserId == userId)
+                .SumAsync(t => t.Amount);
         }
 
         public async Task DeleteTransactionAsync(int id)
         {
-            await _transactionRepository.DeleteAsync(id);
+            var transaction = await _context.Transactions.FindAsync(id);
+            if (transaction != null)
+            {
+                _context.Transactions.Remove(transaction);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Transaction> GetTransactionByIdAsync(int id)
+        {
+            return await _context.Transactions.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
+        {
+            return await _context.Transactions.ToListAsync();
         }
 
         public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(string userId)
         {
-            return await _transactionRepository.GetTransactionsByUserIdAsync(userId);
+            return await _context.Transactions.Where(t => t.UserId == userId).ToListAsync();
+        }
+
+        public async Task<Transaction> UpdateTransactionAsync(Transaction transaction)
+        {
+            _context.Transactions.Update(transaction);
+            await _context.SaveChangesAsync();
+            return transaction;
         }
     }
 }

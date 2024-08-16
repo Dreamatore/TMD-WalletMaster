@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TMD_WalletMaster.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserIdToBudgets : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,6 +87,8 @@ namespace TMD_WalletMaster.Core.Migrations
                     Amount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Category = table.Column<string>(type: "text", nullable: false),
+                    Sum = table.Column<decimal>(type: "numeric", nullable: false),
                     BudgetId = table.Column<int>(type: "integer", nullable: true),
                     GoalId = table.Column<int>(type: "integer", nullable: true)
                 },

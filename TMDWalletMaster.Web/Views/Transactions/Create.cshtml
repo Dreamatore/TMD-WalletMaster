@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TMD_WalletMaster.Core.Models.Transaction>
+
+
+<div class="container">
+    <h2 style="color: yellow;">Add New Transaction</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="date" style="color: green;">Date</label>
+            <input type="date" id="date" name="Date" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="amount" style="color: green;">Amount</label>
+            <input type="number" id="amount" name="Amount" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="description" style="color: green;">Description</label>
+            <input type="text" id="description" name="Description" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="category" style="color: green;">Category</label>
+            <input type="text" id="category" name="Category" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <!-- Добавьте блок аналитики -->
+    @if (ViewData["TotalAmount"] != null)
+    {
+        <div class="alert alert-info mt-4">
+            <h4>Analytics:</h4>
+            <p>Total Amount of Transactions: @ViewData["TotalAmount"]</p>
+            <!-- Можно добавить и другие аналитические данные -->
+        </div>
+    }
+    <div class="mt-4">
+        <h3>Monthly Summary</h3>
+        <p>Total Amount: @Model.Sum(t => t.Amount)</p>
+        <!-- Можно добавить графики или другие аналитические элементы -->
+    </div>
+</div>

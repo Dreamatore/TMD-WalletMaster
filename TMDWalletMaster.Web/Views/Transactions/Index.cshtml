@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TMD_WalletMaster.Core.Models.Transaction>
+
+<div class="container">
+    <div class="text-center" style="margin-top: 20px;">
+        <h2 style="color: yellow; font-weight: bold; margin-bottom: 30px;">Your Transactions</h2>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.Date</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Description</td>
+                <td>@transaction.Category</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Create", "Transactions")" class="btn btn-primary">Add New Transaction</a>
+</div>
+<form method="get" asp-action="Index">
+    <div class="form-group">
+        <input type="text" name="search" placeholder="Search Transactions" class="form-control" />
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </div>
+</form>
