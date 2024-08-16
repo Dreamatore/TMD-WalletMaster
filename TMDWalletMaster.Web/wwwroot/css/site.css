@@ -53,6 +53,13 @@ h1 {
 .btn-block {
   width: 100%; /* Кнопка на всю ширину */
 }
+.highlight-yellow {
+  color: #FFFF00; /* Ярко-жёлтый цвет */
+}
+
+.highlight-green {
+  color: #00FF00; /* Ярко-зелёный цвет */
+}
 
 /* Стили для текста */
 .text-warning {

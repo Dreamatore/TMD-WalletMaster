@@ -6,7 +6,7 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
 {
     public interface IGoalService
     {
-        Task<IEnumerable<Goal>> GetAllGoalsAsync(); 
+        Task<IEnumerable<Goal>> GetAllGoalsAsync();
         Task<Goal> GetGoalByIdAsync(int id);
         Task<Goal> CreateGoalAsync(Goal goal);
         Task<Goal> UpdateGoalAsync(Goal goal);

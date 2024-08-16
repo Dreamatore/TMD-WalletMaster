@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TMD_WalletMaster.Core.Data;
+﻿using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TMD_WalletMaster.Core.Repositories
 {
@@ -16,7 +18,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task<IEnumerable<Goal>> GetAllAsync()
         {
-            return await _context.Goals.ToListAsync(); // Асинхронный метод
+            return await _context.Goals.ToListAsync();
         }
 
         public async Task<Goal> GetByIdAsync(int id)
@@ -26,7 +28,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task AddAsync(Goal goal)
         {
-            await _context.Goals.AddAsync(goal);
+            _context.Goals.Add(goal);
             await _context.SaveChangesAsync();
         }
 

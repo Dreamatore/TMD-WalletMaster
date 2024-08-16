@@ -34,7 +34,8 @@ namespace TMD_WalletMaster.Core.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     TargetAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     CurrentAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    DeadLine = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,9 +89,7 @@ namespace TMD_WalletMaster.Core.Migrations
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Category = table.Column<string>(type: "text", nullable: false),
-                    Sum = table.Column<decimal>(type: "numeric", nullable: false),
-                    BudgetId = table.Column<int>(type: "integer", nullable: true),
-                    GoalId = table.Column<int>(type: "integer", nullable: true)
+                    BudgetId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,11 +98,6 @@ namespace TMD_WalletMaster.Core.Migrations
                         name: "FK_Transactions_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Transactions_Goals_GoalId",
-                        column: x => x.GoalId,
-                        principalTable: "Goals",
                         principalColumn: "Id");
                 });
 
@@ -116,16 +110,14 @@ namespace TMD_WalletMaster.Core.Migrations
                 name: "IX_Transactions_BudgetId",
                 table: "Transactions",
                 column: "BudgetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transactions_GoalId",
-                table: "Transactions",
-                column: "GoalId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Goals");
+
             migrationBuilder.DropTable(
                 name: "Transactions");
 
@@ -134,9 +126,6 @@ namespace TMD_WalletMaster.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Budgets");
-
-            migrationBuilder.DropTable(
-                name: "Goals");
 
             migrationBuilder.DropTable(
                 name: "Categories");

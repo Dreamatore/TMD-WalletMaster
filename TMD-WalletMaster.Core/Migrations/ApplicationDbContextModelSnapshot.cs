@@ -22,6 +22,35 @@ namespace TMD_WalletMaster.Core.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Goal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("TargetAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Goals");
+                });
+
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>
                 {
                     b.Property<int>("Id")
@@ -74,32 +103,6 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TMD_WalletMaster.Core.Models.Goal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("DeadLine")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("TargetAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Goals");
-                });
-
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
@@ -125,12 +128,6 @@ namespace TMD_WalletMaster.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("GoalId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Sum")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -138,8 +135,6 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BudgetId");
-
-                    b.HasIndex("GoalId");
 
                     b.ToTable("Transactions");
                 });
@@ -174,18 +169,9 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.HasOne("TMD_WalletMaster.Core.Models.Budget", null)
                         .WithMany("Transactions")
                         .HasForeignKey("BudgetId");
-
-                    b.HasOne("TMD_WalletMaster.Core.Models.Goal", null)
-                        .WithMany("Transactions")
-                        .HasForeignKey("GoalId");
                 });
 
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>
-                {
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("TMD_WalletMaster.Core.Models.Goal", b =>
                 {
                     b.Navigation("Transactions");
                 });

@@ -13,7 +13,9 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Настройка контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); // Опционально для улучшения производительности
+
 
 // Регистрация служб
 builder.Services.AddScoped<IBudgetService, BudgetService>();
@@ -60,6 +62,12 @@ app.UseEndpoints(endpoints =>
         name: "transactions",
         pattern: "Transactions/{action=Index}/{id?}",
         defaults: new { controller = "Transactions" });
+    
+    endpoints.MapControllerRoute(
+        name: "goals",
+        pattern: "Goals/{action=Index}/{id?}",
+        defaults: new { controller = "Goals", action = "Index" });
 });
+
 
 app.Run();

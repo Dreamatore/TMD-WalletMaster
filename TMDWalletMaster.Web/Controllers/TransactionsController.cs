@@ -36,24 +36,41 @@ namespace TMDWalletMaster.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Создание новой транзакции
                 await _transactionService.CreateTransactionAsync(transaction);
 
-                // Дополнительная логика для аналитики
+                // Получение всех транзакций
                 var transactions = await _transactionService.GetAllTransactionsAsync();
+
+                // Проверка на null и пустоту
+                if (transactions == null)
+                {
+                    transactions = new List<Transaction>(); // Создание пустого списка, если транзакций нет
+                }
+
+                // Логика для аналитики
                 var statistics = new
                 {
                     TotalAmount = transactions.Sum(t => t.Amount),
-                    AverageAmount = transactions.Average(t => t.Amount),
+                    AverageAmount = transactions.Any() ? transactions.Average(t => t.Amount) : 0,
                     Categories = transactions.GroupBy(t => t.Category)
                         .Select(g => new { Category = g.Key, Total = g.Sum(t => t.Amount) })
                         .ToList()
                 };
 
+                // Передача данных в представление
                 ViewBag.Statistics = statistics;
-                return View("Create", transaction);
+
+                // Передача коллекции транзакций в представление
+                return View("Create", transactions);
             }
-            return View(transaction);
+
+            // Если модель невалидна, возвращаем пустой список транзакций в представление
+            return View("Create", new List<Transaction>());
         }
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

@@ -27,10 +27,14 @@ namespace TMD_WalletMaster.Core.Services
 
         public async Task<Goal> CreateGoalAsync(Goal goal)
         {
-            // Используем асинхронный метод репозитория для добавления новой цели
+            // Преобразование дат в UTC
+            goal.StartDate = DateTime.SpecifyKind(goal.StartDate, DateTimeKind.Utc);
+            goal.EndDate = DateTime.SpecifyKind(goal.EndDate, DateTimeKind.Utc);
+
             await _goalRepository.AddAsync(goal);
             return goal;
         }
+
 
         public async Task<Goal> UpdateGoalAsync(Goal goal)
         {
@@ -44,5 +48,6 @@ namespace TMD_WalletMaster.Core.Services
             // Используем асинхронный метод репозитория для удаления цели по идентификатору
             await _goalRepository.DeleteAsync(id);
         }
+        
     }
 }
