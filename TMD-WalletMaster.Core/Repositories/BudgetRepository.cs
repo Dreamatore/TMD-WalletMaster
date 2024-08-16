@@ -17,16 +17,9 @@ namespace TMD_WalletMaster.Core.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
-        {
-            return await _context.Budgets
-                .Where(b => b.UserId == userId) 
-                .ToListAsync(); 
-        }
-
         public async Task<IEnumerable<Budget>> GetAllAsync()
         {
-            return await _context.Budgets.ToListAsync(); 
+            return await _context.Budgets.ToListAsync();
         }
 
         public async Task<Budget> GetByIdAsync(int id)
@@ -36,7 +29,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public async Task AddAsync(Budget budget)
         {
-            await _context.Budgets.AddAsync(budget);
+            _context.Budgets.Add(budget);
             await _context.SaveChangesAsync();
         }
 
@@ -54,6 +47,13 @@ namespace TMD_WalletMaster.Core.Repositories
                 _context.Budgets.Remove(budget);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+        {
+            return await _context.Budgets
+                .Where(b => b.UserId == userId)
+                .ToListAsync();
         }
     }
 }

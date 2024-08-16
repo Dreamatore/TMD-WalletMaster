@@ -4,38 +4,42 @@
     ViewData["Title"] = "Create Budget";
 }
 
-<!-- Заголовок страницы "Create" -->
-<h1 class="page-title text-warning">Create</h1>
+<div class="container">
+    <h2 class="highlight-yellow">Create New Budget</h2>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label highlight-green"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-<!-- Подзаголовок "Budget" -->
-<h2 class="budget-title text-primary">Budget</h2>
+        <div class="form-group">
+            <label asp-for="Amount" class="control-label highlight-green"></label>
+            <input asp-for="Amount" class="form-control" type="number" step="0.01" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name" class="form-label text-success"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label highlight-green"></label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Amount" class="form-label text-success"></label>
-        <input asp-for="Amount" class="form-control" />
-        <span asp-validation-for="Amount" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="EndDate" class="control-label highlight-green"></label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="StartDate" class="form-label text-success"></label>
-        <input asp-for="StartDate" class="form-control" />
-        <span asp-validation-for="StartDate" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="CategoryId" class="control-label highlight-green"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                <option value="">Select Category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="EndDate" class="form-label text-success"></label>
-        <input asp-for="EndDate" class="form-control" />
-        <span asp-validation-for="EndDate" class="text-danger"></span>
-    </div>
-    <!-- Контейнер для кнопки -->
-    <div class="form-group button-container">
-        <button type="submit" class="btn btn-primary btn-lg">Create</button>
-    </div>
-</form>
+        <button type="submit" class="btn btn-primary">Save Budget</button>
+        <a href="@Url.Action("Index", "Budgets")" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

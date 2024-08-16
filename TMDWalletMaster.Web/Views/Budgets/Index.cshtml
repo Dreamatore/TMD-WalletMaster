@@ -1,43 +1,27 @@
 ﻿@model IEnumerable<TMD_WalletMaster.Core.Models.Budget>
 
-@{
-    ViewData["Title"] = "Budgets";
-}
-
-<h1 class="page-title">Budgets</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary btn-lg">Create New</a>
-</p>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th class="highlight-text">
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th class="highlight-text">
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
+<div class="container">
+    <h2 style="color: yellow;">Your Budgets</h2>
+    <table class="table">
+        <thead>
         <tr>
-            <td class="highlight-text">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td class="highlight-text">
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-link">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-link">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-link">Delete</a>
-            </td>
+            <th>Budget Name</th>
+            <th>Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var budget in Model)
+        {
+            <tr>
+                <td>@budget.Name</td>
+                <td>@budget.Amount</td>
+                <td>@budget.StartDate.ToString("d")</td>
+                <td>@budget.EndDate.ToString("d")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Create", "Budgets")" class="btn btn-primary">Add New Budget</a>
+</div>

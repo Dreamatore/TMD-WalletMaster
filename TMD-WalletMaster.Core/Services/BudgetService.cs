@@ -1,4 +1,6 @@
-﻿using TMD_WalletMaster.Core.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Services.Interfaces;
 
@@ -12,40 +14,37 @@ namespace TMD_WalletMaster.Core.Services
         {
             _budgetRepository = budgetRepository;
         }
-        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
-        {
-            return await _budgetRepository.GetBudgetsByUserIdAsync(userId);
-        }
+
         public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
         {
-            // Используем асинхронный метод репозитория для получения всех бюджетов
-            return await _budgetRepository.GetAllAsync(); // Предполагается, что этот метод также асинхронный
+            return await _budgetRepository.GetAllAsync();
         }
 
         public async Task<Budget> GetBudgetByIdAsync(int id)
         {
-            // Используем асинхронный метод репозитория для получения бюджета по идентификатору
             return await _budgetRepository.GetByIdAsync(id);
         }
 
         public async Task<Budget> CreateBudgetAsync(Budget budget)
         {
-            // Используем асинхронный метод репозитория для добавления нового бюджета
             await _budgetRepository.AddAsync(budget);
             return budget;
         }
 
         public async Task<Budget> UpdateBudgetAsync(Budget budget)
         {
-            // Используем асинхронный метод репозитория для обновления существующего бюджета
             await _budgetRepository.UpdateAsync(budget);
             return budget;
         }
 
         public async Task DeleteBudgetAsync(int id)
         {
-            // Используем асинхронный метод репозитория для удаления бюджета по идентификатору
             await _budgetRepository.DeleteAsync(id);
+        }
+
+        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+        {
+            return await _budgetRepository.GetBudgetsByUserIdAsync(userId);
         }
     }
 }

@@ -16,16 +16,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); // Опционально для улучшения производительности
 
-
 // Регистрация служб
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IGoalService, GoalService>();
-builder.Services.AddScoped<IGoalRepository,GoalRepository>();
-builder.Services.AddScoped<ITransactionService,TransactionService>();
-builder.Services.AddScoped<ITransactionRepository,TransactionRepository>();
+builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+
 // Регистрация конфигурации почтового сервиса
 builder.Services.AddSingleton(builder.Configuration);
 
@@ -67,7 +67,11 @@ app.UseEndpoints(endpoints =>
         name: "goals",
         pattern: "Goals/{action=Index}/{id?}",
         defaults: new { controller = "Goals", action = "Index" });
-});
 
+    endpoints.MapControllerRoute(
+        name: "budgets",
+        pattern: "Budgets/{action=Index}/{id?}",
+        defaults: new { controller = "Budgets", action = "Index" });
+});
 
 app.Run();

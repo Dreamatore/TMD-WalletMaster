@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 
-namespace TMDWalletMaster.Web.Controllers
+namespace TMD_WalletMaster.Web.Controllers
 {
     public class GoalsController : Controller
     {
