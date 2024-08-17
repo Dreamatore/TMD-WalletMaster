@@ -12,7 +12,7 @@ namespace TMD_WalletMaster.Core.Services
 
         public CategoryService(ICategoryRepository categoryRepository)
         {
-            _categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()

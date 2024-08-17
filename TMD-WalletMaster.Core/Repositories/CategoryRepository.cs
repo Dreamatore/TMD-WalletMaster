@@ -13,7 +13,7 @@ namespace TMD_WalletMaster.Core.Repositories
 
         public CategoryRepository(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()

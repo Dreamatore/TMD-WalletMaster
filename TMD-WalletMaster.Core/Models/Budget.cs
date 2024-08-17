@@ -1,14 +1,29 @@
-﻿namespace TMD_WalletMaster.Core.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Budget
+namespace TMD_WalletMaster.Core.Models
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Amount { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public ICollection<Transaction> Transactions { get; set; } 
-    public int CategoryId { get; set; }
-    public Category Category { get; set; }
-    public string UserId { get; set; }
+    public class Budget
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Amount is required")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than 0")]
+        public decimal Amount { get; set; }
+
+        [Required(ErrorMessage = "Start Date is required")]
+        public DateTime StartDate { get; set; }
+
+        [Required(ErrorMessage = "End Date is required")]
+        public DateTime EndDate { get; set; }
+
+        [Required(ErrorMessage = "Category is required")]
+        public int CategoryId { get; set; }
+
+        [Required(ErrorMessage = "UserId is required.")]
+        public string UserId { get; set; }
+    }
 }

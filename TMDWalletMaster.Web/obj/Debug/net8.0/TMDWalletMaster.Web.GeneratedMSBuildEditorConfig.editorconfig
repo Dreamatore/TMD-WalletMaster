@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\user\RiderProjects\TMDWalletMaster\WalletMaster\TMDWalletMaster.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Budgets/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVkZ2V0c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,18 +68,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Goals/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbHNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Home/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/RiderProjects/TMDWalletMaster/WalletMaster/TMDWalletMaster.Web/Views/Navigation/Index.cshtml]

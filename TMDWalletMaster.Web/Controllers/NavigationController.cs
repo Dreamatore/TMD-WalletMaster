@@ -2,29 +2,45 @@
 using TMD_WalletMaster.Core.Services.Interfaces;
 using TMDWalletMaster.Web.ViewModels;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace TMDWalletMaster.Web.Controllers
 {
+    [Authorize] // Убедитесь, что пользователи должны быть аутентифицированы для доступа к этому контроллеру
     public class NavigationController : Controller
     {
         private readonly IBudgetService _budgetService;
 
+        // Внедрение зависимости
         public NavigationController(IBudgetService budgetService)
         {
             _budgetService = budgetService;
         }
 
+        // Метод для отображения страницы профиля пользователя
         public async Task<IActionResult> Index()
         {
-            var userId = "1"; // Замените на реальный идентификатор пользователя
+            // Получаем идентификатор текущего пользователя из Claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            if (userId == null)
+            {
+                // Если идентификатор пользователя не найден, перенаправляем на страницу входа
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Получаем бюджеты текущего пользователя
             var budgets = await _budgetService.GetBudgetsByUserIdAsync(userId);
 
+            // Создаём модель для представления
             var model = new UserProfileViewModel
             {
                 Budgets = budgets
-                // Другие данные, если нужно
+                // Можно добавить другие данные, если нужно
             };
 
+            // Возвращаем представление с моделью
             return View(model);
         }
     }

@@ -2,6 +2,19 @@
 
 @{
     ViewData["Title"] = "Create Budget";
+    var categories = ViewBag.Categories as IEnumerable<SelectListItem>;
+    Console.WriteLine("Categories in ViewBag:");
+    if (categories != null)
+    {
+        foreach (var category in categories)
+        {
+            Console.WriteLine($"Category Value: {category.Value}, Text: {category.Text}");
+        }
+    }
+    else
+    {
+        Console.WriteLine("No categories found in ViewBag.");
+    }
 }
 
 <div class="container">

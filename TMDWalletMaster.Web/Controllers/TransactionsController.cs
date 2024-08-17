@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 
 namespace TMDWalletMaster.Web.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private readonly ITransactionService _transactionService;

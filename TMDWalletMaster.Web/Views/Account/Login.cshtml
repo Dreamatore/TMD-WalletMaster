@@ -1,0 +1,60 @@
+﻿@{
+ViewBag.Title = "Login";
+}
+
+<style>
+    /* Стиль для заголовка страницы */
+    h2 {
+        text-align: center;
+        color: #4CAF50; /* Ярко-зелёный цвет для заголовка */
+    }
+
+    /* Стиль для дополнительного текста */
+    .additional-text {
+        color: red; /* Красный цвет */
+        font-size: 14px; /* Средний размер шрифта */
+        text-align: center;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    /* Стиль для меток формы */
+    .form-group label {
+        color: #4CAF50; /* Ярко-зелёный цвет для меток */
+        font-size: 16px; /* Размер шрифта меток */
+    }
+
+    /* Стиль для полей ввода */
+    .form-group input {
+        font-size: 18px; /* Увеличенный размер шрифта для полей ввода */
+    }
+
+    /* Стиль для кнопки */
+    .btn-primary {
+        font-size: 18px; /* Размер шрифта для кнопки */
+        padding: 10px 20px; /* Размер кнопки */
+    }
+</style>
+
+<h2>Login</h2>
+
+<span class="additional-text">TMD-Root-BackDoor</span>
+
+@if (ViewBag.Error != null)
+{
+<div class="alert alert-danger">
+    @ViewBag.Error
+</div>
+}
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

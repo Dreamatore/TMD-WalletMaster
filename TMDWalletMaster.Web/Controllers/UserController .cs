@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Services.Interfaces;
 using TMDWalletMaster.Web.ViewModels; // Убедитесь, что ViewModel находится здесь
 
 namespace TMDWalletMaster.Web.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

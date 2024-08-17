@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 
 namespace TMD_WalletMaster.Web.Controllers
 {
+    [Authorize]
     public class GoalsController : Controller
     {
         private readonly IGoalService _goalService;
