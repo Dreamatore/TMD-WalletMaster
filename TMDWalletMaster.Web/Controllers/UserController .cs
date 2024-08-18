@@ -20,7 +20,7 @@ namespace TMDWalletMaster.Web.Controllers
             _transactionService = transactionService;
         }
 
-        public async Task<IActionResult> Profile(string id)
+        public async Task<IActionResult> Profile(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
             var budgets = await _budgetService.GetBudgetsByUserIdAsync(id); // Исправлено

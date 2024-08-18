@@ -24,6 +24,6 @@ namespace TMD_WalletMaster.Core.Models
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "UserId is required.")]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

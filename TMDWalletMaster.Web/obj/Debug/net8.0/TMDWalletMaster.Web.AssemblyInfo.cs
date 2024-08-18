@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TMDWalletMaster.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6c791f03d2c25eb8ac5cb4664c627633c93f169")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89585fa5b3ae7dd69c6656cd88bb39ec90052be5")]
 [assembly: System.Reflection.AssemblyProductAttribute("TMDWalletMaster.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TMDWalletMaster.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

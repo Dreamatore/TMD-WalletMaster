@@ -1,7 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Services.Interfaces;
@@ -10,15 +8,18 @@ using TMD_WalletMaster.Core.Repositories.Interfaces;
 using TMD_WalletMaster.Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); 
 
-// Добавление служб в контейнер.
+// Добавление служб в контейнер
 builder.Services.AddControllersWithViews(options =>
-    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())).AddRazorRuntimeCompilation();
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+    .AddRazorRuntimeCompilation();
 
 // Настройка контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); // Опционально для улучшения производительности
+        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); 
 
 // Регистрация служб
 builder.Services.AddScoped<IBudgetService, BudgetService>();
@@ -29,51 +30,38 @@ builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IGoalRepository, GoalRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Регистрация конфигурации почтового сервиса
 builder.Services.AddSingleton(builder.Configuration);
 
-// Настройка конфигурации куки
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    options.Cookie.SameSite = SameSiteMode.Strict;
-    options.LoginPath = "/Account/Login"; // Если пользователь не авторизован, его перенаправляют сюда
-    options.LogoutPath = "/Account/Logout";
-    options.AccessDeniedPath = "/Account/Login"; // На случай, если доступ запрещён
-});
-
-
-// Регистрация аутентификации (например, с использованием Identity)
+// Настройка конфигурации куки и аутентификации
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = "Cookies";
-    options.DefaultSignInScheme = "Cookies";
-    options.DefaultChallengeScheme = "Cookies";
-}).AddCookie("Cookies");
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie();
 
-// Регистрация авторизации
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
 // Настройка обработки запросов
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-}
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-// Важно: UseAuthentication должно идти до UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -92,7 +80,7 @@ app.UseEndpoints(endpoints =>
         name: "transactions",
         pattern: "Transactions/{action=Index}/{id?}",
         defaults: new { controller = "Transactions" });
-    
+
     endpoints.MapControllerRoute(
         name: "goals",
         pattern: "Goals/{action=Index}/{id?}",
@@ -102,8 +90,8 @@ app.UseEndpoints(endpoints =>
         name: "budgets",
         pattern: "Budgets/{action=Index}/{id?}",
         defaults: new { controller = "Budgets", action = "Index" });
-    
-    endpoints.MapControllers(); // Убедитесь, что этот вызов присутствует
+
+    endpoints.MapControllers(); 
 });
 
 app.Run();

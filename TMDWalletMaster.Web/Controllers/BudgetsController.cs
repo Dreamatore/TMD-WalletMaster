@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace TMDWalletMaster.Web.Controllers
 {
@@ -44,8 +47,17 @@ namespace TMDWalletMaster.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            // Получаем идентификатор текущего пользователя из Claims
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                Console.WriteLine("UserId is not valid. Redirecting to login page.");
+                return RedirectToAction("Login", "Account");
+            }
+
             // Установите UserId из текущего пользователя
-            budget.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            budget.UserId = userId;
             Console.WriteLine($"UserId extracted: {budget.UserId}");
 
             // Конвертируем даты в формат UTC
@@ -131,7 +143,6 @@ namespace TMDWalletMaster.Web.Controllers
 
             return View(budget);
         }
-
 
         // GET: Budgets
         public async Task<IActionResult> Index()

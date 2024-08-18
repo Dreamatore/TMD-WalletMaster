@@ -16,10 +16,10 @@ namespace TMD_WalletMaster.Core.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(string userId)
+        public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(int userId)
         {
             return await _context.Transactions
-                .Where(t => t.UserId == userId) // Убедитесь, что UserId есть в модели Transaction
+                .Where(t => t.UserId == userId)
                 .ToListAsync();
         }
 

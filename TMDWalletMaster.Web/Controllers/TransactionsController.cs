@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TMDWalletMaster.Web.Controllers
 {
@@ -18,8 +18,15 @@ namespace TMDWalletMaster.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // Получение идентификатора текущего пользователя из Claims
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                return RedirectToAction("Login", "Account"); // Или другой подходящий статус код
+            }
+
             // Получение всех транзакций для пользователя
-            var userId = User.Identity.Name; // Или другой способ получения ID пользователя
             var transactions = await _transactionService.GetTransactionsByUserIdAsync(userId);
             var totalAmount = await _transactionService.GetTotalAmountByUserIdAsync(userId);
 
@@ -48,8 +55,17 @@ namespace TMDWalletMaster.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Установить UserId текущего пользователя
-            transaction.UserId = User.Identity.Name;
+            // Получение идентификатора текущего пользователя из Claims
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                Console.WriteLine("UserId is not valid. Redirecting to login page.");
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Установка UserId текущего пользователя
+            transaction.UserId = userId;
             Console.WriteLine($"UserId extracted: {transaction.UserId}");
 
             // Конвертируем дату транзакции в формат UTC
@@ -107,7 +123,6 @@ namespace TMDWalletMaster.Web.Controllers
 
             return View(transaction);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

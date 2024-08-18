@@ -2,6 +2,7 @@
 using TMD_WalletMaster.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using TMDWalletMaster.Web.ViewModels;
 
 namespace TMDWalletMaster.Web.Controllers
@@ -21,11 +22,11 @@ namespace TMDWalletMaster.Web.Controllers
         public async Task<IActionResult> Index()
         {
             // Получаем идентификатор текущего пользователя из Claims
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            if (userId == null)
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
-                // Если идентификатор пользователя не найден, перенаправляем на страницу входа
+                // Если идентификатор пользователя не найден или преобразование не удалось, перенаправляем на страницу входа
                 return RedirectToAction("Login", "Account");
             }
 

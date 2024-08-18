@@ -42,7 +42,7 @@ namespace TMD_WalletMaster.Core.Services
             await _budgetRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+        public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(int userId)
         {
             return await _budgetRepository.GetBudgetsByUserIdAsync(userId);
         }

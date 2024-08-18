@@ -11,6 +11,6 @@ namespace TMD_WalletMaster.Core.Repositories.Interfaces
         Task AddAsync(Budget budget);
         Task UpdateAsync(Budget budget);
         Task DeleteAsync(int id);
-        Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId);
+        Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(int userId);
     }
 }

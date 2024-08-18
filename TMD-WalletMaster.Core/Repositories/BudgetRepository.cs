@@ -45,8 +45,10 @@ public class BudgetRepository : IBudgetRepository
         }
     }
 
-    public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(string userId)
+    public async Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(int userId)
     {
-        return await _context.Budgets.Where(b => b.UserId == userId).ToListAsync();
+        return await _context.Budgets
+            .Where(b => b.UserId == userId)
+            .ToListAsync();
     }
 }

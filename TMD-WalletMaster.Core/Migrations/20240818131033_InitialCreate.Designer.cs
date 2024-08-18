@@ -12,7 +12,7 @@ using TMD_WalletMaster.Core.Data;
 namespace TMD_WalletMaster.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240817105753_InitialCreate")]
+    [Migration("20240818131033_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace TMD_WalletMaster.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -44,18 +44,16 @@ namespace TMD_WalletMaster.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Budgets");
                 });
@@ -117,9 +115,6 @@ namespace TMD_WalletMaster.Core.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("BudgetId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("text");
@@ -131,52 +126,33 @@ namespace TMD_WalletMaster.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BudgetId");
 
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("TMD_WalletMaster.Core.Models.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>
-                {
-                    b.HasOne("TMD_WalletMaster.Core.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("TMD_WalletMaster.Core.Models.Transaction", b =>
-                {
-                    b.HasOne("TMD_WalletMaster.Core.Models.Budget", null)
-                        .WithMany("Transactions")
-                        .HasForeignKey("BudgetId");
-                });
-
-            modelBuilder.Entity("TMD_WalletMaster.Core.Models.Budget", b =>
-                {
-                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

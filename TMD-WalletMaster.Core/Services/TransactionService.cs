@@ -23,7 +23,7 @@ namespace TMD_WalletMaster.Core.Services
             await _context.SaveChangesAsync();
             return transaction;
         }
-        public async Task<decimal> GetTotalAmountByUserIdAsync(string userId)
+        public async Task<decimal> GetTotalAmountByUserIdAsync(int userId)
         {
             return await _context.Transactions
                 .Where(t => t.UserId == userId)
@@ -50,7 +50,7 @@ namespace TMD_WalletMaster.Core.Services
             return await _context.Transactions.ToListAsync();
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(string userId)
+        public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(int userId)
         {
             return await _context.Transactions.Where(t => t.UserId == userId).ToListAsync();
         }
