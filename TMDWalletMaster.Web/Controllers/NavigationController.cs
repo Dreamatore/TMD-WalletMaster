@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using TMDWalletMaster.Web.ViewModels;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using TMDWalletMaster.Web.ViewModels;
 
 namespace TMDWalletMaster.Web.Controllers
 {

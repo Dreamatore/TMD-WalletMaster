@@ -1,0 +1,78 @@
+﻿@model TMDWalletMaster.Web.ViewModels.UserProfileViewModel
+
+<h1 class="profile-header">@Model.User.Name's Profile</h1>
+
+<div class="profile-section">
+    <h2 class="section-header">Budgets</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var budget in Model.Budgets)
+        {
+        <tr>
+            <td>@budget.Name</td>
+            <td>@budget.Amount</td>
+            <td>@budget.StartDate.ToShortDateString()</td>
+            <td>@budget.EndDate.ToShortDateString()</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="profile-section">
+    <h2 class="section-header">Transactions</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var transaction in Model.Transactions)
+        {
+        <tr>
+            <td>@transaction.Description</td>
+            <td>@transaction.Amount</td>
+            <td>@transaction.Date.ToShortDateString()</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="profile-section">
+    <h2 class="section-header">Goals</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Target Amount</th>
+            <th>Current Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var goal in Model.Goals)
+        {
+        <tr>
+            <td>@goal.Name</td>
+            <td>@goal.TargetAmount</td>
+            <td>@goal.CurrentAmount</td>
+            <td>@goal.StartDate.ToShortDateString()</td>
+            <td>@goal.EndDate.ToShortDateString()</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>

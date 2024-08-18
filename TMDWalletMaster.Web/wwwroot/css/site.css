@@ -264,3 +264,10 @@ h1 {
 .form-control.highlight-green {
   background-color: #000; /* Черный фон для контраста */
 }
+.profile-header {
+  color: yellow;
+}
+
+.section-header {
+  color: yellow;
+}

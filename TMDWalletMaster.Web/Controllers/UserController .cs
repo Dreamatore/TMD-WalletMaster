@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using TMDWalletMaster.Web.ViewModels; // Убедитесь, что ViewModel находится здесь
+using TMDWalletMaster.Web.ViewModels;
+
 
 namespace TMDWalletMaster.Web.Controllers
 {
