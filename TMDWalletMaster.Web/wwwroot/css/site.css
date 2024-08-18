@@ -216,3 +216,51 @@ h1 {
   border-color: #00bfff; /* Ярко голубой цвет границы */
   border-radius: 5px; /* Скругление углов кнопки */
 }
+/* Стиль для заголовка Create Transaction */
+.transaction-header {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* Стиль для меток (label) и полей ввода (input) */
+.transaction-label,
+.transaction-input {
+  color: #00FF00; /* Ярко-зеленый цвет */
+  border-color: #00FF00;
+}
+
+.transaction-input {
+  background-color: #000; /* Черный фон, чтобы создать контраст */
+}
+/* Стиль для заголовка Create New Budget */
+.highlight-yellow {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* Стиль для меток (label) и полей ввода (input), и выпадающего списка (select) */
+.highlight-green {
+  color: #00FF00; /* Ярко-зеленый цвет */
+  border-color: #00FF00;
+}
+
+/* Дополнительный стиль для фона полей ввода и выпадающего списка */
+.form-control.highlight-green {
+  background-color: #000; /* Черный фон для контраста */
+}
+/* Стиль для заголовка Create New Goal */
+.highlight-yellow {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* Стиль для меток (label) и полей ввода (input) */
+.highlight-green {
+  color: #00FF00; /* Ярко-зеленый цвет */
+  border-color: #00FF00;
+}
+
+/* Дополнительный стиль для фона полей ввода */
+.form-control.highlight-green {
+  background-color: #000; /* Черный фон для контраста */
+}

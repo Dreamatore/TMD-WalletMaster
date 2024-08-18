@@ -33,45 +33,80 @@ namespace TMDWalletMaster.Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Transaction transaction)
         {
-            if (ModelState.IsValid)
+            // Логирование начала выполнения метода
+            Console.WriteLine("Starting Create method for Transaction.");
+
+            // Проверка аутентификации пользователя
+            if (!User.Identity.IsAuthenticated)
             {
-                // Создание новой транзакции
-                await _transactionService.CreateTransactionAsync(transaction);
-
-                // Получение всех транзакций
-                var transactions = await _transactionService.GetAllTransactionsAsync();
-
-                // Проверка на null и пустоту
-                if (transactions == null)
-                {
-                    transactions = new List<Transaction>(); // Создание пустого списка, если транзакций нет
-                }
-
-                // Логика для аналитики
-                var statistics = new
-                {
-                    TotalAmount = transactions.Sum(t => t.Amount),
-                    AverageAmount = transactions.Any() ? transactions.Average(t => t.Amount) : 0,
-                    Categories = transactions.GroupBy(t => t.Category)
-                        .Select(g => new { Category = g.Key, Total = g.Sum(t => t.Amount) })
-                        .ToList()
-                };
-
-                // Передача данных в представление
-                ViewBag.Statistics = statistics;
-
-                // Передача коллекции транзакций в представление
-                return View("Create", transactions);
+                Console.WriteLine("User is not authenticated. Redirecting to login page.");
+                return RedirectToAction("Login", "Account");
             }
 
-            // Если модель невалидна, возвращаем пустой список транзакций в представление
-            return View("Create", new List<Transaction>());
+            // Установить UserId текущего пользователя
+            transaction.UserId = User.Identity.Name;
+            Console.WriteLine($"UserId extracted: {transaction.UserId}");
+
+            // Конвертируем дату транзакции в формат UTC
+            transaction.Date = DateTime.SpecifyKind(transaction.Date, DateTimeKind.Utc);
+
+            // Логирование свойств модели перед валидацией
+            Console.WriteLine("Model properties:");
+            Console.WriteLine($"Amount: {transaction.Amount}");
+            Console.WriteLine($"Date: {transaction.Date}");
+            Console.WriteLine($"Description: {transaction.Description}");
+            Console.WriteLine($"Category: {transaction.Category}");
+            Console.WriteLine($"UserId: {transaction.UserId}");
+
+            // Исключаем UserId из проверки модели (если это необходимо)
+            ModelState.Remove("UserId");
+
+            // Логирование состояния модели
+            Console.WriteLine("Model state is valid: " + ModelState.IsValid);
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("Model state is invalid. Errors:");
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Логирование перед вызовом сервиса создания транзакции
+                    Console.WriteLine(
+                        $"Attempting to create transaction for UserId: {transaction.UserId}, Amount: {transaction.Amount}");
+
+                    await _transactionService.CreateTransactionAsync(transaction);
+
+                    // Логирование успешного завершения операции
+                    Console.WriteLine("Transaction creation successful. Redirecting to Index.");
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    // Логирование ошибки
+                    Console.WriteLine("Exception during transaction creation: " + ex.Message);
+                    ModelState.AddModelError("", "An error occurred while creating the transaction.");
+                }
+            }
+            else
+            {
+                // Логирование ошибок модели
+                Console.WriteLine("Returning to the view with model errors.");
+            }
+
+            return View(transaction);
         }
-
-
 
 
         [HttpGet]
@@ -82,6 +117,7 @@ namespace TMDWalletMaster.Web.Controllers
             {
                 return NotFound();
             }
+
             return View(transaction);
         }
 
@@ -93,6 +129,7 @@ namespace TMDWalletMaster.Web.Controllers
                 await _transactionService.UpdateTransactionAsync(transaction);
                 return RedirectToAction("Index");
             }
+
             return View(transaction);
         }
 
