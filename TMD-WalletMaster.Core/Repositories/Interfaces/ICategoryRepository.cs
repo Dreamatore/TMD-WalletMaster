@@ -6,10 +6,10 @@ namespace TMD_WalletMaster.Core.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {
-        Task<IEnumerable<Category>> GetAllCategoriesAsync();
-        Task<Category> GetCategoryByIdAsync(int id);
+        Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId);
+        Task<Category> GetCategoryByIdAsync(int id, int userId);
         Task CreateCategoryAsync(Category category);
         Task UpdateCategoryAsync(Category category);
-        Task DeleteCategoryAsync(int id);
+        Task DeleteCategoryAsync(int id, int userId);
     }
 }

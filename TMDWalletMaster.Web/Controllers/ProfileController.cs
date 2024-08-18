@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // Добавлено для логирования
 using TMD_WalletMaster.Core.Services.Interfaces;
 using TMDWalletMaster.Web.ViewModels;
 
@@ -11,14 +10,14 @@ namespace TMDWalletMaster.Web.Controllers
         private readonly IBudgetService _budgetService;
         private readonly IGoalService _goalService;
         private readonly IUserService _userService;
-        private readonly ILogger<ProfileController> _logger; // Добавлено для логирования
+        private readonly ILogger<ProfileController> _logger;
 
         public ProfileController(
             ITransactionService transactionService,
             IBudgetService budgetService,
             IGoalService goalService,
             IUserService userService,
-            ILogger<ProfileController> logger) // Добавлен параметр для логирования
+            ILogger<ProfileController> logger)
         {
             _transactionService = transactionService;
             _budgetService = budgetService;
@@ -55,7 +54,7 @@ namespace TMDWalletMaster.Web.Controllers
                 User = user,
                 Budgets = await _budgetService.GetBudgetsByUserIdAsync(user.Id),
                 Transactions = await _transactionService.GetTransactionsByUserIdAsync(user.Id),
-                Goals = await _goalService.GetAllGoalsAsync()
+                Goals = await _goalService.GetGoalsByUserIdAsync(user.Id) 
             };
 
             _logger.LogInformation("Returning View for User with Username {UserName}.", userName);

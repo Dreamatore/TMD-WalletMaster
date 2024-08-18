@@ -67,6 +67,9 @@ namespace TMD_WalletMaster.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -95,6 +98,9 @@ namespace TMD_WalletMaster.Core.Migrations
 
                     b.Property<decimal>("TargetAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

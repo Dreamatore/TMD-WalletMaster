@@ -1,9 +1,7 @@
-﻿using TMD_WalletMaster.Core.Data;
-using TMD_WalletMaster.Core.Models;
+﻿using TMD_WalletMaster.Core.Models;
+using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace TMD_WalletMaster.Core.Repositories
 {
@@ -16,29 +14,31 @@ namespace TMD_WalletMaster.Core.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Goal>> GetAllAsync()
+        public async Task<IEnumerable<Goal>> GetGoalsByUserIdAsync(int userId)
         {
-            return await _context.Goals.ToListAsync();
+            return await _context.Goals.Where(g => g.UserId == userId).ToListAsync();
         }
 
-        public async Task<Goal> GetByIdAsync(int id)
+        public async Task<Goal> GetGoalByIdAsync(int id)
         {
             return await _context.Goals.FindAsync(id);
         }
 
-        public async Task AddAsync(Goal goal)
+        public async Task<Goal> CreateGoalAsync(Goal goal)
         {
             _context.Goals.Add(goal);
             await _context.SaveChangesAsync();
+            return goal;
         }
 
-        public async Task UpdateAsync(Goal goal)
+        public async Task<Goal> UpdateGoalAsync(Goal goal)
         {
             _context.Goals.Update(goal);
             await _context.SaveChangesAsync();
+            return goal;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteGoalAsync(int id)
         {
             var goal = await _context.Goals.FindAsync(id);
             if (goal != null)

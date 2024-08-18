@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
@@ -16,14 +17,16 @@ namespace TMD_WalletMaster.Core.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId)
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Where(c => c.UserId == userId).ToListAsync();
         }
 
-        public async Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<Category> GetCategoryByIdAsync(int id, int userId)
         {
-            return await _context.Categories.FindAsync(id);
+            return await _context.Categories
+                .Where(c => c.Id == id && c.UserId == userId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task CreateCategoryAsync(Category category)
@@ -38,9 +41,11 @@ namespace TMD_WalletMaster.Core.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(int id, int userId)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories
+                .Where(c => c.Id == id && c.UserId == userId)
+                .FirstOrDefaultAsync();
             if (category != null)
             {
                 _context.Categories.Remove(category);

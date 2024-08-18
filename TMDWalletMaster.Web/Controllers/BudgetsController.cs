@@ -1,11 +1,11 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
 
 namespace TMDWalletMaster.Web.Controllers
 {
@@ -13,17 +13,31 @@ namespace TMDWalletMaster.Web.Controllers
     {
         private readonly IBudgetService _budgetService;
         private readonly ICategoryService _categoryService;
+        private readonly ILogger<BudgetsController> _logger;
 
-        public BudgetsController(IBudgetService budgetService, ICategoryService categoryService)
+        public BudgetsController(IBudgetService budgetService, ICategoryService categoryService, ILogger<BudgetsController> logger)
         {
             _budgetService = budgetService;
             _categoryService = categoryService;
+            _logger = logger;
+        }
+
+        private int GetCurrentUserId()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                _logger.LogWarning("UserId is not valid. Redirecting to login page.");
+                throw new UnauthorizedAccessException("Invalid user ID.");
+            }
+            return userId;
         }
 
         // GET: Budgets/Create
         public async Task<IActionResult> Create()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var userId = GetCurrentUserId(); // Получаем текущий UserId
+            var categories = await _categoryService.GetCategoriesByUserIdAsync(userId); // Обновляем вызов метода
             ViewBag.Categories = categories.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
@@ -37,13 +51,12 @@ namespace TMDWalletMaster.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Budget budget)
         {
-            // Логирование начала выполнения метода
-            Console.WriteLine("Starting Create method.");
+            _logger.LogInformation("Starting Create method.");
 
             // Проверьте, аутентифицирован ли пользователь
             if (!User.Identity.IsAuthenticated)
             {
-                Console.WriteLine("User is not authenticated. Redirecting to login page.");
+                _logger.LogWarning("User is not authenticated. Redirecting to login page.");
                 return RedirectToAction("Login", "Account");
             }
 
@@ -52,38 +65,38 @@ namespace TMDWalletMaster.Web.Controllers
 
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
-                Console.WriteLine("UserId is not valid. Redirecting to login page.");
+                _logger.LogWarning("UserId is not valid. Redirecting to login page.");
                 return RedirectToAction("Login", "Account");
             }
 
             // Установите UserId из текущего пользователя
             budget.UserId = userId;
-            Console.WriteLine($"UserId extracted: {budget.UserId}");
+            _logger.LogInformation($"UserId extracted: {budget.UserId}");
 
             // Конвертируем даты в формат UTC
             budget.StartDate = DateTime.SpecifyKind(budget.StartDate, DateTimeKind.Utc);
             budget.EndDate = DateTime.SpecifyKind(budget.EndDate, DateTimeKind.Utc);
 
             // Логирование состояния модели перед валидацией
-            Console.WriteLine("Model properties:");
-            Console.WriteLine($"Name: {budget.Name}");
-            Console.WriteLine($"Amount: {budget.Amount}");
-            Console.WriteLine($"StartDate: {budget.StartDate}");
-            Console.WriteLine($"EndDate: {budget.EndDate}");
-            Console.WriteLine($"CategoryId: {budget.CategoryId}");
-            Console.WriteLine($"UserId: {budget.UserId}");
+            _logger.LogInformation("Model properties:");
+            _logger.LogInformation($"Name: {budget.Name}");
+            _logger.LogInformation($"Amount: {budget.Amount}");
+            _logger.LogInformation($"StartDate: {budget.StartDate}");
+            _logger.LogInformation($"EndDate: {budget.EndDate}");
+            _logger.LogInformation($"CategoryId: {budget.CategoryId}");
+            _logger.LogInformation($"UserId: {budget.UserId}");
 
             // Исключаем UserId из проверки модели
             ModelState.Remove("UserId");
 
             // Логирование состояния модели
-            Console.WriteLine("Model state is valid: " + ModelState.IsValid);
+            _logger.LogInformation("Model state is valid: {IsValid}", ModelState.IsValid);
             if (!ModelState.IsValid)
             {
-                Console.WriteLine("Model state is invalid. Errors:");
+                _logger.LogWarning("Model state is invalid. Errors:");
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    Console.WriteLine(error.ErrorMessage);
+                    _logger.LogWarning(error.ErrorMessage);
                 }
             }
 
@@ -92,39 +105,39 @@ namespace TMDWalletMaster.Web.Controllers
                 try
                 {
                     // Логирование перед вызовом сервиса создания бюджета
-                    Console.WriteLine($"Attempting to create budget: {budget.Name}, UserId: {budget.UserId}");
+                    _logger.LogInformation("Attempting to create budget: {Name}, UserId: {UserId}", budget.Name, budget.UserId);
 
                     await _budgetService.CreateBudgetAsync(budget);
 
                     // Логирование успешного завершения операции
-                    Console.WriteLine("Budget creation successful. Redirecting to Index.");
+                    _logger.LogInformation("Budget creation successful. Redirecting to Index.");
 
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     // Логирование ошибки
-                    Console.WriteLine("Exception during budget creation: " + ex.Message);
+                    _logger.LogError(ex, "Exception during budget creation.");
                     ModelState.AddModelError("", "An error occurred while creating the budget.");
                 }
             }
             else
             {
                 // Логирование ошибок модели
-                Console.WriteLine("Returning to the view with model errors.");
+                _logger.LogWarning("Returning to the view with model errors.");
                 // Перезагружаем категории, если модель невалидна
                 try
                 {
-                    Console.WriteLine("Reloading categories for the ViewBag.");
+                    _logger.LogInformation("Reloading categories for the ViewBag.");
 
-                    var categories = await _categoryService.GetAllCategoriesAsync();
+                    var categories = await _categoryService.GetCategoriesByUserIdAsync(GetCurrentUserId());
                     if (categories == null || !categories.Any())
                     {
-                        Console.WriteLine("No categories found.");
+                        _logger.LogWarning("No categories found.");
                     }
                     else
                     {
-                        Console.WriteLine($"Categories reloaded. Count: {categories.Count()}");
+                        _logger.LogInformation("Categories reloaded. Count: {Count}", categories.Count());
                     }
 
                     ViewBag.Categories = categories.Select(c => new SelectListItem
@@ -136,7 +149,7 @@ namespace TMDWalletMaster.Web.Controllers
                 catch (Exception ex)
                 {
                     // Логирование ошибки при загрузке категорий
-                    Console.WriteLine("Exception during reloading categories: " + ex.Message);
+                    _logger.LogError(ex, "Exception during reloading categories.");
                     ModelState.AddModelError("", "An error occurred while loading categories.");
                 }
             }
@@ -147,7 +160,25 @@ namespace TMDWalletMaster.Web.Controllers
         // GET: Budgets
         public async Task<IActionResult> Index()
         {
-            var budgets = await _budgetService.GetAllBudgetsAsync();
+            // Проверяем аутентификацию пользователя
+            if (!User.Identity.IsAuthenticated)
+            {
+                _logger.LogWarning("User is not authenticated. Redirecting to login page.");
+                return RedirectToAction("Login", "Account");
+            }
+
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                _logger.LogWarning("UserId is not valid. Redirecting to login page.");
+                return RedirectToAction("Login", "Account");
+            }
+
+            _logger.LogInformation("Fetching budgets for user with ID: {UserId}", userId);
+
+            var budgets = await _budgetService.GetBudgetsByUserIdAsync(userId);
+            _logger.LogInformation("Fetched {Count} budgets for user with ID: {UserId}", budgets.Count(), userId);
+
             return View(budgets);
         }
     }

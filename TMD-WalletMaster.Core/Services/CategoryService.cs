@@ -15,14 +15,14 @@ namespace TMD_WalletMaster.Core.Services
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId)
         {
-            return await _categoryRepository.GetAllCategoriesAsync();
+            return await _categoryRepository.GetCategoriesByUserIdAsync(userId);
         }
 
-        public async Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<Category> GetCategoryByIdAsync(int id, int userId)
         {
-            return await _categoryRepository.GetCategoryByIdAsync(id);
+            return await _categoryRepository.GetCategoryByIdAsync(id, userId);
         }
 
         public async Task CreateCategoryAsync(Category category)
@@ -35,9 +35,9 @@ namespace TMD_WalletMaster.Core.Services
             await _categoryRepository.UpdateCategoryAsync(category);
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(int id, int userId)
         {
-            await _categoryRepository.DeleteCategoryAsync(id);
+            await _categoryRepository.DeleteCategoryAsync(id, userId);
         }
     }
 }
