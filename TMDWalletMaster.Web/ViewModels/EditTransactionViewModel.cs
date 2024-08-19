@@ -17,5 +17,7 @@ namespace TMDWalletMaster.Web.ViewModels
         [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+        public string Category { get; set; } 
     }
 }

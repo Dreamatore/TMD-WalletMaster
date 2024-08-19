@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using TMD_WalletMaster.Core.Data;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
@@ -8,10 +10,12 @@ namespace TMD_WalletMaster.Core.Services
     public class TransactionService : ITransactionService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<TransactionService> _logger;
 
-        public TransactionService(ApplicationDbContext context)
+        public TransactionService(ApplicationDbContext context, ILogger<TransactionService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<Transaction> CreateTransactionAsync(Transaction transaction)
@@ -25,7 +29,6 @@ namespace TMD_WalletMaster.Core.Services
             await _context.SaveChangesAsync();
             return transaction;
         }
-
 
         public async Task<decimal> GetTotalAmountByUserIdAsync(int userId)
         {
@@ -44,7 +47,7 @@ namespace TMD_WalletMaster.Core.Services
             }
         }
 
-        public async Task DeleteAllTransactionsByUserIdAsync(int userId)  // Добавлено
+        public async Task DeleteAllTransactionsByUserIdAsync(int userId)
         {
             var transactions = _context.Transactions.Where(t => t.UserId == userId);
             _context.Transactions.RemoveRange(transactions);
@@ -68,15 +71,26 @@ namespace TMD_WalletMaster.Core.Services
 
         public async Task<Transaction> UpdateTransactionAsync(Transaction transaction)
         {
-            if (transaction.Date.Kind == DateTimeKind.Unspecified)
+            _logger.LogInformation("Updating transaction with ID {TransactionId}.", transaction.Id);
+    
+            var existingTransaction = await _context.Transactions.FindAsync(transaction.Id);
+            if (existingTransaction == null)
             {
-                transaction.Date = DateTime.SpecifyKind(transaction.Date, DateTimeKind.Utc);
+                _logger.LogWarning("Transaction with ID {TransactionId} not found.", transaction.Id);
+                return null;
             }
 
-            _context.Transactions.Update(transaction);
+            existingTransaction.Amount = transaction.Amount;
+            existingTransaction.Date = transaction.Date;
+            existingTransaction.Description = transaction.Description;
+            existingTransaction.Category = transaction.Category;
+            _context.Transactions.Update(existingTransaction);
+            _logger.LogInformation("Saving changes to database.");
             await _context.SaveChangesAsync();
-            return transaction;
-        }
+    
+            _logger.LogInformation("Transaction with ID {TransactionId} updated successfully.", transaction.Id);
 
+            return existingTransaction;
+        }
     }
 }

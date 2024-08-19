@@ -71,6 +71,7 @@ namespace TMDWalletMaster.Web.Controllers
         {
             if (file == null || file.Length == 0)
             {
+                _logger.LogWarning("No file uploaded or file is empty.");
                 ModelState.AddModelError("", "Please upload a valid file.");
                 return RedirectToAction("Index");
             }
@@ -78,6 +79,7 @@ namespace TMDWalletMaster.Web.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
+                _logger.LogWarning("User is not authenticated.");
                 ModelState.AddModelError("", "User is not authenticated.");
                 return RedirectToAction("Index");
             }
@@ -91,7 +93,7 @@ namespace TMDWalletMaster.Web.Controllers
                 {
                     var transaction = new Transaction
                     {
-                        UserId = userId, // Set the UserId
+                        UserId = userId,
                         Amount = bankTransaction.Amount,
                         Date = bankTransaction.TransactionDate.ToUniversalTime(),
                         Description = bankTransaction.Description,
@@ -118,11 +120,11 @@ namespace TMDWalletMaster.Web.Controllers
             try
             {
                 await _transactionService.DeleteTransactionAsync(id);
-                _logger.LogInformation($"Transaction with ID {id} deleted successfully.");
+                _logger.LogInformation("Transaction with ID {Id} deleted successfully.", id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deleting transaction.");
+                _logger.LogError(ex, "Error deleting transaction with ID {Id}.", id);
                 ModelState.AddModelError("", "An error occurred while deleting the transaction.");
             }
 
@@ -135,6 +137,7 @@ namespace TMDWalletMaster.Web.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
+                _logger.LogWarning("User is not authenticated. Cannot clear transactions.");
                 ModelState.AddModelError("", "User is not authenticated.");
                 return RedirectToAction("Index");
             }
@@ -142,21 +145,24 @@ namespace TMDWalletMaster.Web.Controllers
             try
             {
                 await _transactionService.DeleteAllTransactionsByUserIdAsync(userId);
-                _logger.LogInformation("All transactions for user ID {UserId} cleared successfully.");
+                _logger.LogInformation("All transactions for user ID {UserId} cleared successfully.", userId);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error clearing all transactions.");
+                _logger.LogError(ex, "Error clearing all transactions for user ID {UserId}.", userId);
                 ModelState.AddModelError("", "An error occurred while clearing all transactions.");
             }
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null)
             {
+                _logger.LogWarning("Transaction with ID {Id} not found for editing.", id);
                 return NotFound();
             }
 
@@ -169,6 +175,8 @@ namespace TMDWalletMaster.Web.Controllers
                 Category = transaction.Category
             };
 
+            _logger.LogInformation("Transaction with ID {Id} fetched successfully for editing.", id);
+
             return View(model);
         }
 
@@ -177,12 +185,15 @@ namespace TMDWalletMaster.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Model state is invalid. Model state errors: {Errors}",
+                    ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)));
                 return View(model);
             }
 
             var transaction = await _transactionService.GetTransactionByIdAsync(model.Id);
             if (transaction == null)
             {
+                _logger.LogWarning("Transaction with ID {Id} not found for update.", model.Id);
                 return NotFound();
             }
 
@@ -191,16 +202,30 @@ namespace TMDWalletMaster.Web.Controllers
             transaction.Description = model.Description;
             transaction.Category = model.Category;
 
-            await _transactionService.UpdateTransactionAsync(transaction);
-            return RedirectToAction("Index");
+            try
+            {
+                await _transactionService.UpdateTransactionAsync(transaction);
+                _logger.LogInformation("Transaction with ID {Id} updated successfully. Redirecting to Index.",
+                    model.Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating transaction with ID {Id}.", model.Id);
+                ModelState.AddModelError("", "An error occurred while updating the transaction.");
+                return View(model);
+            }
         }
-        // GET: /Profile/EditTransaction/5
+
         [HttpGet]
         public async Task<IActionResult> EditTransaction(int id)
         {
+            _logger.LogInformation("Fetching transaction with ID {Id} for editing.", id);
+
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null)
             {
+                _logger.LogWarning("Transaction with ID {Id} not found.", id);
                 return NotFound();
             }
 
@@ -209,31 +234,58 @@ namespace TMDWalletMaster.Web.Controllers
                 Id = transaction.Id,
                 Description = transaction.Description,
                 Amount = transaction.Amount,
-                Date = transaction.Date
+                Date = transaction.Date,
+                Category = transaction.Category
             };
+
+            _logger.LogInformation("Transaction with ID {Id} fetched successfully for editing.", id);
 
             return View(viewModel);
         }
 
-        // POST: /Profile/EditTransaction
         [HttpPost]
         public async Task<IActionResult> EditTransaction(EditTransactionViewModel model)
         {
+            _logger.LogInformation("Attempting to update transaction with ID {Id}.", model.Id);
+
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Model state is invalid. Model state errors: {Errors}",
+                    ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)));
                 return View(model);
             }
 
-            var transaction = new Transaction
+            try
             {
-                Id = model.Id,
-                Description = model.Description,
-                Amount = model.Amount,
-                Date = model.Date
-            };
+                var transaction = new Transaction
+                {
+                    Id = model.Id,
+                    Description = model.Description,
+                    Amount = model.Amount,
+                    Date = model.Date.ToUniversalTime(),
+                    Category = model.Category
+                };
 
-            await _transactionService.UpdateTransactionAsync(transaction);
-            return RedirectToAction("Index");
+                var updatedTransaction = await _transactionService.UpdateTransactionAsync(transaction);
+
+                if (updatedTransaction == null)
+                {
+                    _logger.LogWarning(
+                        "Transaction with ID {Id} was not updated. It may not exist or be in the wrong state.",
+                        model.Id);
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Transaction with ID {Id} updated successfully. Redirecting to Index.",
+                    model.Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating transaction with ID {Id}.", model.Id);
+                ModelState.AddModelError("", "An error occurred while updating the transaction.");
+                return View(model);
+            }
         }
     }
 }

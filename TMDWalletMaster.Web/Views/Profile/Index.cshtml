@@ -94,11 +94,12 @@
 </div>
 
 <div class="profile-section">
-    <h2 class="section-header">Wanna Import Bank Data?</h2>
+    <h2 class="section-header">Wanna Import Bank Transactions Data?</h2>
     <form asp-controller="Profile" asp-action="Import" enctype="multipart/form-data" method="post">
         <div class="form-group">
-            <label for="file" class="control-label">Select .xlsx file to import:</label>
-            <input type="file" id="file" name="file" class="form-control-file" />
+            <label for="file" class="control-label import-label">Select .xlsx file to import:</label>
+            <input type="file" id="file" name="file" class="form-control-file" onchange="updateFileLabel()" />
+            <span id="fileLabel" class="file-label">No file selected</span>
         </div>
         <button type="submit" class="btn btn-primary btn-block" style="background-color: #007bff; color: white;">Import (xlsx)</button>
     </form>
@@ -127,4 +128,27 @@
         background-color: #138496;
         color: white;
     }
+
+    .import-label {
+        color: #ffff00; 
+    }
+
+    .file-label {
+        color: #ff0000;
+        display: block;
+        margin-top: 5px;
+    }
 </style>
+
+<script>
+    function updateFileLabel() {
+        var fileInput = document.getElementById('file');
+        var fileLabel = document.getElementById('fileLabel');
+        
+        if (fileInput.files.length > 0) {
+            fileLabel.textContent = fileInput.files[0].name;
+        } else {
+            fileLabel.textContent = 'No file selected';
+        }
+    }
+</script>
