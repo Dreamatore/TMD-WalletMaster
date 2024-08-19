@@ -10,6 +10,7 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
         Task<Transaction> CreateTransactionAsync(Transaction transaction);
         Task<Transaction> UpdateTransactionAsync(Transaction transaction);
         Task DeleteTransactionAsync(int id);
+        Task DeleteAllTransactionsByUserIdAsync(int userId); 
         Task<decimal> GetTotalAmountByUserIdAsync(int userId);
     }
 }

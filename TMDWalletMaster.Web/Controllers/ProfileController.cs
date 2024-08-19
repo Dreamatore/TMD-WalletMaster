@@ -91,9 +91,9 @@ namespace TMDWalletMaster.Web.Controllers
                 {
                     var transaction = new Transaction
                     {
-                        UserId = userId,
+                        UserId = userId, // Set the UserId
                         Amount = bankTransaction.Amount,
-                        Date = DateTime.SpecifyKind(bankTransaction.TransactionDate, DateTimeKind.Utc), // Ensure DateTime is in UTC
+                        Date = bankTransaction.TransactionDate.ToUniversalTime(),
                         Description = bankTransaction.Description,
                         Category = bankTransaction.Category
                     };
@@ -112,5 +112,45 @@ namespace TMDWalletMaster.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteTransaction(int id)
+        {
+            try
+            {
+                await _transactionService.DeleteTransactionAsync(id);
+                _logger.LogInformation($"Transaction with ID {id} deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting transaction.");
+                ModelState.AddModelError("", "An error occurred while deleting the transaction.");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClearAllTransactions()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                ModelState.AddModelError("", "User is not authenticated.");
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                await _transactionService.DeleteAllTransactionsByUserIdAsync(userId);
+                _logger.LogInformation("All transactions for user ID {UserId} cleared successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error clearing all transactions.");
+                ModelState.AddModelError("", "An error occurred while clearing all transactions.");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

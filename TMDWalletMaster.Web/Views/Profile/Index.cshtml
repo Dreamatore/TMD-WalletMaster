@@ -28,13 +28,19 @@
 </div>
 
 <div class="profile-section">
-    <h2 class="section-header">Transactions</h2>
+    <h2 class="section-header">
+        Transactions
+        <form asp-action="ClearAllTransactions" asp-controller="Profile" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Clear All</button>
+        </form>
+    </h2>
     <table class="table">
         <thead>
         <tr>
             <th>Description</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Actions</th>  <!-- Добавлено -->
         </tr>
         </thead>
         <tbody>
@@ -44,6 +50,12 @@
             <td>@transaction.Description</td>
             <td>@transaction.Amount</td>
             <td>@transaction.Date.ToShortDateString()</td>
+            <td>
+                <form asp-action="DeleteTransaction" asp-controller="Profile" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@transaction.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>  <!-- Добавлено -->
         </tr>
         }
         </tbody>
