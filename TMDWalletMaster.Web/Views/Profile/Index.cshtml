@@ -40,7 +40,7 @@
             <th>Description</th>
             <th>Amount</th>
             <th>Date</th>
-            <th>Actions</th>  <!-- Добавлено -->
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -51,11 +51,15 @@
             <td>@transaction.Amount</td>
             <td>@transaction.Date.ToShortDateString()</td>
             <td>
+                <!-- Edit Button -->
+                <a href="@Url.Action("EditTransaction", "Profile", new { id = transaction.Id })" class="btn btn-info">Edit</a>
+
+                <!-- Delete Button -->
                 <form asp-action="DeleteTransaction" asp-controller="Profile" method="post" style="display:inline;">
                     <input type="hidden" name="id" value="@transaction.Id" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-            </td>  <!-- Добавлено -->
+            </td>
         </tr>
         }
         </tbody>
@@ -112,5 +116,15 @@
 
     .profile-section {
         margin-bottom: 30px;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+
+    .btn-info:hover {
+        background-color: #138496;
+        color: white;
     }
 </style>

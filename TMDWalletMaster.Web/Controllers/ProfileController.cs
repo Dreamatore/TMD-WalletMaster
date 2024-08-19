@@ -152,5 +152,88 @@ namespace TMDWalletMaster.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            var model = new TransactionViewModel
+            {
+                Id = transaction.Id,
+                Amount = transaction.Amount,
+                Date = transaction.Date,
+                Description = transaction.Description,
+                Category = transaction.Category
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TransactionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var transaction = await _transactionService.GetTransactionByIdAsync(model.Id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            transaction.Amount = model.Amount;
+            transaction.Date = model.Date.ToUniversalTime();
+            transaction.Description = model.Description;
+            transaction.Category = model.Category;
+
+            await _transactionService.UpdateTransactionAsync(transaction);
+            return RedirectToAction("Index");
+        }
+        // GET: /Profile/EditTransaction/5
+        [HttpGet]
+        public async Task<IActionResult> EditTransaction(int id)
+        {
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new EditTransactionViewModel
+            {
+                Id = transaction.Id,
+                Description = transaction.Description,
+                Amount = transaction.Amount,
+                Date = transaction.Date
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: /Profile/EditTransaction
+        [HttpPost]
+        public async Task<IActionResult> EditTransaction(EditTransactionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var transaction = new Transaction
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Amount = model.Amount,
+                Date = model.Date
+            };
+
+            await _transactionService.UpdateTransactionAsync(transaction);
+            return RedirectToAction("Index");
+        }
     }
 }
