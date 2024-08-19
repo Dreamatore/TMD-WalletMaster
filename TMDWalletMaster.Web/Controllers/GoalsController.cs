@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
-using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 
-namespace TMD_WalletMaster.Web.Controllers
+namespace TMDWalletMaster.Web.Controllers
 {
     [Authorize]
     public class GoalsController : Controller

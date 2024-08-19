@@ -76,3 +76,29 @@
         </tbody>
     </table>
 </div>
+
+<div class="profile-section">
+    <h2 class="section-header">Wanna Import Bank Data?</h2>
+    <form asp-controller="Profile" asp-action="Import" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <label for="file" class="control-label">Select .xlsx file to import:</label>
+            <input type="file" id="file" name="file" class="form-control-file" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="background-color: #007bff; color: white;">Import (xlsx)</button>
+    </form>
+</div>
+
+<style>
+    .section-header {
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .btn-block {
+        margin-top: 10px;
+    }
+
+    .profile-section {
+        margin-bottom: 30px;
+    }
+</style>

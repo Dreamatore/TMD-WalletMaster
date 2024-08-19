@@ -32,6 +32,7 @@ builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IExcelImportService, ExcelImportService>();
 
 // Регистрация конфигурации почтового сервиса
 builder.Services.AddSingleton(builder.Configuration);
