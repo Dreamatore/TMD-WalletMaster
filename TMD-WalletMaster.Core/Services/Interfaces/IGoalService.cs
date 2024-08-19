@@ -11,5 +11,6 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
         Task<Goal> CreateGoalAsync(Goal goal);
         Task<Goal> UpdateGoalAsync(Goal goal);
         Task DeleteGoalAsync(int id);
+        Task DeleteAllGoalsByUserIdAsync(int userId);
     }
 }

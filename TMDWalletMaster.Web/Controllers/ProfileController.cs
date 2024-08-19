@@ -287,5 +287,120 @@ namespace TMDWalletMaster.Web.Controllers
                 return View(model);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteGoal(int id)
+        {
+            try
+            {
+                await _goalService.DeleteGoalAsync(id);
+                _logger.LogInformation("Goal with ID {Id} deleted successfully.", id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting goal with ID {Id}.", id);
+                ModelState.AddModelError("", "An error occurred while deleting the goal.");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClearAllGoals()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                _logger.LogWarning("User is not authenticated. Cannot clear goals.");
+                ModelState.AddModelError("", "User is not authenticated.");
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                await _goalService.DeleteAllGoalsByUserIdAsync(userId);
+                _logger.LogInformation("All goals for user ID {UserId} cleared successfully.", userId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error clearing all goals for user ID {UserId}.", userId);
+                ModelState.AddModelError("", "An error occurred while clearing all goals.");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditGoal(int id)
+        {
+            _logger.LogInformation("Fetching goal with ID {Id} for editing.", id);
+
+            var goal = await _goalService.GetGoalByIdAsync(id);
+            if (goal == null)
+            {
+                _logger.LogWarning("Goal with ID {Id} not found.", id);
+                return NotFound();
+            }
+
+            var viewModel = new EditGoalViewModel
+            {
+                Id = goal.Id,
+                Name = goal.Name,
+                TargetAmount = goal.TargetAmount,
+                CurrentAmount = goal.CurrentAmount,
+                StartDate = goal.StartDate,
+                EndDate = goal.EndDate
+            };
+
+            _logger.LogInformation("Goal with ID {Id} fetched successfully for editing.", id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditGoal(EditGoalViewModel model)
+        {
+            _logger.LogInformation("Attempting to update goal with ID {Id}.", model.Id);
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Model state is invalid. Model state errors: {Errors}",
+                    ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)));
+                return View(model);
+            }
+
+            try
+            {
+                var goal = new Goal
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    TargetAmount = model.TargetAmount,
+                    CurrentAmount = model.CurrentAmount,
+                    StartDate = model.StartDate.ToUniversalTime(),
+                    EndDate = model.EndDate.ToUniversalTime()
+                };
+
+                var updatedGoal = await _goalService.UpdateGoalAsync(goal);
+
+                if (updatedGoal == null)
+                {
+                    _logger.LogWarning(
+                        "Goal with ID {Id} was not updated. It may not exist or be in the wrong state.",
+                        model.Id);
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Goal with ID {Id} updated successfully. Redirecting to Index.",
+                    model.Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating goal with ID {Id}.", model.Id);
+                ModelState.AddModelError("", "An error occurred while updating the goal.");
+                return View(model);
+            }
+        }
     }
 }

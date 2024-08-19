@@ -67,7 +67,12 @@
 </div>
 
 <div class="profile-section">
-    <h2 class="section-header">Goals</h2>
+    <h2 class="section-header">
+        Goals
+        <form asp-action="ClearAllGoals" asp-controller="Profile" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Clear All</button>
+        </form>
+    </h2>
     <table class="table">
         <thead>
         <tr>
@@ -76,6 +81,7 @@
             <th>Current Amount</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -87,6 +93,16 @@
             <td>@goal.CurrentAmount</td>
             <td>@goal.StartDate.ToShortDateString()</td>
             <td>@goal.EndDate.ToShortDateString()</td>
+            <td>
+                <!-- Edit Button -->
+                <a href="@Url.Action("EditGoal", "Profile", new { id = goal.Id })" class="btn btn-info">Edit</a>
+
+                <!-- Delete Button -->
+                <form asp-action="DeleteGoal" asp-controller="Profile" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@goal.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         }
         </tbody>

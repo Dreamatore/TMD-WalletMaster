@@ -1,0 +1,41 @@
+﻿@model TMDWalletMaster.Web.ViewModels.EditGoalViewModel
+
+<h1>Edit Goal</h1>
+
+<form asp-action="EditGoal" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TargetAmount" class="control-label"></label>
+        <input asp-for="TargetAmount" class="form-control" />
+        <span asp-validation-for="TargetAmount" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentAmount" class="control-label"></label>
+        <input asp-for="CurrentAmount" class="form-control" />
+        <span asp-validation-for="CurrentAmount" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDate" class="control-label"></label>
+        <input asp-for="StartDate" class="form-control" type="date" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDate" class="control-label"></label>
+        <input asp-for="EndDate" class="form-control" type="date" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a href="@Url.Action("Index", "Profile")" class="btn btn-secondary">Back to Profile</a>
