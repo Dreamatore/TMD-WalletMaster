@@ -8,16 +8,16 @@ namespace TMD_WalletMaster.Core.Models
 
         public int UserId { get; set; }
 
-        [Required] // Обязательное поле
+        [Required]
         public decimal Amount { get; set; }
 
-        [Required] // Обязательное поле
+        [Required] 
         public DateTime Date { get; set; }
 
-        [Required] // Обязательное поле
+        [Required] 
         public string Description { get; set; }
 
-        [Required] // Обязательное поле
+        [Required] 
         public string Category { get; set; }
     }
 }

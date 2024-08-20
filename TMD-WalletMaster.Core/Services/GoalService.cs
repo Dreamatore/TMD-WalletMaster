@@ -1,6 +1,7 @@
 ﻿using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TMD_WalletMaster.Core.Data;
 
 namespace TMD_WalletMaster.Core.Services
@@ -8,10 +9,12 @@ namespace TMD_WalletMaster.Core.Services
     public class GoalService : IGoalService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<GoalService> _logger;
 
-        public GoalService(ApplicationDbContext context)
+        public GoalService(ApplicationDbContext context, ILogger<GoalService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Goal>> GetGoalsByUserIdAsync(int userId)
@@ -35,10 +38,31 @@ namespace TMD_WalletMaster.Core.Services
 
         public async Task<Goal> UpdateGoalAsync(Goal goal)
         {
-            _context.Goals.Update(goal);
+            _logger.LogInformation("Updating goal with ID {GoalId}.", goal.Id);
+
+            var existingGoal = await _context.Goals.FindAsync(goal.Id);
+            if (existingGoal == null)
+            {
+                _logger.LogWarning("Goal with ID {GoalId} not found.", goal.Id);
+                return null;
+            }
+
+            existingGoal.Name = goal.Name;
+            existingGoal.TargetAmount = goal.TargetAmount;
+            existingGoal.CurrentAmount = goal.CurrentAmount;
+            existingGoal.StartDate = goal.StartDate;
+            existingGoal.EndDate = goal.EndDate;
+            existingGoal.UserId = goal.UserId;
+
+            _context.Goals.Update(existingGoal);
+            _logger.LogInformation("Saving changes to database.");
             await _context.SaveChangesAsync();
-            return goal;
+
+            _logger.LogInformation("Goal with ID {GoalId} updated successfully.", goal.Id);
+
+            return existingGoal;
         }
+
 
         public async Task DeleteGoalAsync(int id)
         {

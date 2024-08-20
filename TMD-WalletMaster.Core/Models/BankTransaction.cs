@@ -1,6 +1,6 @@
 ﻿namespace TMD_WalletMaster.Core.Models
 {
-    public class BankTransaction
+    public class BankTransaction // HomeBank xlsx table
     {
         public int Id { get; set; }
         public DateTime TransactionDate { get; set; }  // Дата совершения операции

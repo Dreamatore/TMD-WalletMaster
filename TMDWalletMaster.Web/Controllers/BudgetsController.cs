@@ -33,6 +33,7 @@ namespace TMDWalletMaster.Web.Controllers
             return userId;
         }
 
+
         // GET: Budgets/Create
         public async Task<IActionResult> Create()
         {
@@ -181,5 +182,6 @@ namespace TMDWalletMaster.Web.Controllers
 
             return View(budgets);
         }
+        
     }
 }

@@ -6,10 +6,10 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<User> GetUserByIdAsync(int id); // Используем int
+        Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUserNameAsync(string userName);
-        Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(int id); // Используем int
-        Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(int id); // Используем int
+        Task<IEnumerable<Budget>> GetBudgetsByUserIdAsync(int id); 
+        Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(int id); 
         Task<RegistrationResult> RegisterUserAsync(User user);
     }
 }

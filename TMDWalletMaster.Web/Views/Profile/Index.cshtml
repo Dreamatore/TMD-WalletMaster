@@ -3,7 +3,12 @@
 <h1 class="profile-header">@Model.User.UserName's Profile</h1>
 
 <div class="profile-section">
-    <h2 class="section-header">Budgets</h2>
+    <h2 class="section-header">
+        Budgets
+        <form asp-action="ClearAllBudgets" asp-controller="Profile" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Clear All</button>
+        </form>
+    </h2>
     <table class="table">
         <thead>
         <tr>
@@ -11,6 +16,7 @@
             <th>Amount</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Actions</th> <!-- Добавлено для действий -->
         </tr>
         </thead>
         <tbody>
@@ -21,6 +27,16 @@
             <td>@budget.Amount</td>
             <td>@budget.StartDate.ToShortDateString()</td>
             <td>@budget.EndDate.ToShortDateString()</td>
+            <td>
+                <!-- Edit Button -->
+                <a href="@Url.Action("EditBudget", "Profile", new { id = budget.Id })" class="btn btn-info">Edit</a>
+
+                <!-- Delete Button -->
+                <form asp-action="DeleteBudget" asp-controller="Profile" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@budget.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         }
         </tbody>

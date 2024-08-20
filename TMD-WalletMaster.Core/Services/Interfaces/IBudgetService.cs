@@ -12,5 +12,7 @@ namespace TMD_WalletMaster.Core.Services.Interfaces
         Task<Budget> CreateBudgetAsync(Budget budget);
         Task<Budget> UpdateBudgetAsync(Budget budget);
         Task DeleteBudgetAsync(int id);
+        Task DeleteAllBudgetsByUserIdAsync(int userId);
+
     }
 }

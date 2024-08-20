@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TMD_WalletMaster.Core.Models;
 using TMD_WalletMaster.Core.Services.Interfaces;
 using TMDWalletMaster.Web.ViewModels;
@@ -16,6 +17,7 @@ namespace TMDWalletMaster.Web.Controllers
         private readonly IUserService _userService;
         private readonly IExcelImportService _excelImportService;
         private readonly ILogger<ProfileController> _logger;
+        private readonly ICategoryService _categoryService;
 
         public ProfileController(
             ITransactionService transactionService,
@@ -23,7 +25,9 @@ namespace TMDWalletMaster.Web.Controllers
             IGoalService goalService,
             IUserService userService,
             IExcelImportService excelImportService,
-            ILogger<ProfileController> logger)
+            ILogger<ProfileController> logger,
+            ICategoryService categoryService)
+        
         {
             _transactionService = transactionService;
             _budgetService = budgetService;
@@ -31,6 +35,17 @@ namespace TMDWalletMaster.Web.Controllers
             _userService = userService;
             _excelImportService = excelImportService;
             _logger = logger;
+            _categoryService = categoryService;
+        }
+        private int GetCurrentUserId()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                _logger.LogWarning("UserId is not valid. Redirecting to login page.");
+                throw new UnauthorizedAccessException("Invalid user ID.");
+            }
+            return userId;
         }
 
         public async Task<IActionResult> Index()
@@ -86,7 +101,7 @@ namespace TMDWalletMaster.Web.Controllers
 
             try
             {
-                using var stream = file.OpenReadStream();
+                await using var stream = file.OpenReadStream();
                 var bankTransactions = _excelImportService.ImportTransactions(stream);
 
                 foreach (var bankTransaction in bankTransactions)
@@ -378,21 +393,21 @@ namespace TMDWalletMaster.Web.Controllers
                     TargetAmount = model.TargetAmount,
                     CurrentAmount = model.CurrentAmount,
                     StartDate = model.StartDate.ToUniversalTime(),
-                    EndDate = model.EndDate.ToUniversalTime()
+                    EndDate = model.EndDate.ToUniversalTime(),
+                    UserId = int.Parse(
+                        User.FindFirstValue(ClaimTypes.NameIdentifier)) 
                 };
 
                 var updatedGoal = await _goalService.UpdateGoalAsync(goal);
 
                 if (updatedGoal == null)
                 {
-                    _logger.LogWarning(
-                        "Goal with ID {Id} was not updated. It may not exist or be in the wrong state.",
+                    _logger.LogWarning("Goal with ID {Id} was not updated. It may not exist or be in the wrong state.",
                         model.Id);
                     return NotFound();
                 }
 
-                _logger.LogInformation("Goal with ID {Id} updated successfully. Redirecting to Index.",
-                    model.Id);
+                _logger.LogInformation("Goal with ID {Id} updated successfully. Redirecting to Index.", model.Id);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -402,5 +417,111 @@ namespace TMDWalletMaster.Web.Controllers
                 return View(model);
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteBudget(int id)
+        {
+            try
+            {
+                await _budgetService.DeleteBudgetAsync(id);
+                _logger.LogInformation("Budget with ID {Id} deleted successfully.", id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting budget with ID {Id}.", id);
+                ModelState.AddModelError("", "An error occurred while deleting the budget.");
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> ClearAllBudgets()
+        {
+            var userId = GetCurrentUserId();
+            try
+            {
+                await _budgetService.DeleteAllBudgetsByUserIdAsync(userId);
+                _logger.LogInformation("All budgets for user ID {UserId} cleared successfully.", userId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error clearing all budgets for user ID {UserId}.", userId);
+                ModelState.AddModelError("", "An error occurred while clearing all budgets.");
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditBudget(int id)
+        {
+            var budget = await _budgetService.GetBudgetByIdAsync(id);
+            if (budget == null)
+            {
+                _logger.LogWarning("Budget with ID {Id} not found.", id);
+                return NotFound();
+            }
+
+            var model = new EditBudgetViewModel
+            {
+                Id = budget.Id,
+                Name = budget.Name,
+                Amount = budget.Amount,
+                StartDate = budget.StartDate,
+                EndDate = budget.EndDate,
+                CategoryId = budget.CategoryId
+            };
+
+            var categories = await _categoryService.GetCategoriesByUserIdAsync(GetCurrentUserId());
+            ViewBag.Categories = categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            }).ToList();
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditBudget(EditBudgetViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Model state is invalid. Model state errors: {Errors}",
+                    ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)));
+                return View(model);
+            }
+
+            var budget = new Budget
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Amount = model.Amount,
+                StartDate = model.StartDate.ToUniversalTime(),
+                EndDate = model.EndDate.ToUniversalTime(),
+                CategoryId = model.CategoryId
+            };
+
+            try
+            {
+                var updatedBudget = await _budgetService.UpdateBudgetAsync(budget);
+
+                if (updatedBudget == null)
+                {
+                    _logger.LogWarning(
+                        "Budget with ID {Id} was not updated. It may not exist or be in the wrong state.",
+                        model.Id);
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Budget with ID {Id} updated successfully. Redirecting to Index.", model.Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating budget with ID {Id}.", model.Id);
+                ModelState.AddModelError("", "An error occurred while updating the budget.");
+                return View(model);
+            }
+        }
+
     }
 }
